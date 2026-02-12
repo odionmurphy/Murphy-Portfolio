@@ -1,66 +1,37 @@
-import { serve } from "bun";
+import { serve, file } from "bun";
 import { Database } from "bun:sqlite";
 import path from "path";
 import nodemailer from "nodemailer";
-import { readFileSync, existsSync } from "fs";
 
-/* ---------------- ENV ---------------- */
 const PORT = Number(process.env.PORT || 3000);
-
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
-
-const CONTACT_FROM =
-  process.env.CONTACT_FROM || "Murphy Portfolio <djmurphyluv@gmail.com>";
+const CONTACT_FROM = process.env.CONTACT_FROM || "Murphy Portfolio <djmurphyluv@gmail.com>";
 const CONTACT_TO = process.env.CONTACT_TO || "djmurphyluv@gmail.com";
-
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "admin123";
-
-// Frontend static files (built by Vite, copied into ./public by Docker)
-const PUBLIC_DIR = path.resolve(process.cwd(), "public");
-
-const INDEX_HTML = path.join(PUBLIC_DIR, "index.html");
+const PUBLIC_DIR = path.join(import.meta.dir, "public");
 
 console.log("🚀 Running on PORT:", PORT);
 console.log("SMTP configured:", Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS));
-console.log("Serving frontend from:", PUBLIC_DIR);
-console.log("CWD:", process.cwd());
-console.log("import.meta.dir:", import.meta.dir);
+console.log("PUBLIC_DIR:", PUBLIC_DIR);
 
-/* ---------------- DATABASE ---------------- */
-const dbPath = path.resolve(process.cwd(), "data.sqlite");
-const db = new Database(dbPath);
+const db = new Database(path.join(import.meta.dir, "data.sqlite"));
+db.run(`CREATE TABLE IF NOT EXISTS contacts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT, email TEXT, message TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS contacts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    message TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`);
-
-/* ---------------- MAIL TRANSPORT ---------------- */
 let transporter: nodemailer.Transporter | null = null;
-
 if (SMTP_HOST && SMTP_USER && SMTP_PASS) {
   transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: false, // STARTTLS
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
-    },
+    host: SMTP_HOST, port: SMTP_PORT, secure: false,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
   });
-} else {
-  console.warn("⚠ SMTP credentials missing — email disabled");
 }
 
-/* ---------------- HELPERS ---------------- */
 function jsonResponse(data: any, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -79,38 +50,11 @@ function isAdmin(req: Request) {
   return req.headers.get("x-admin-token") === ADMIN_TOKEN;
 }
 
-// Serve a static file from the public directory
-function serveStatic(filePath: string): Response | null {
-  if (!existsSync(filePath)) return null;
-
-  const ext = path.extname(filePath);
-  const mimeTypes: Record<string, string> = {
-    ".html":  "text/html",
-    ".js":    "application/javascript",
-    ".css":   "text/css",
-    ".png":   "image/png",
-    ".jpg":   "image/jpeg",
-    ".jpeg":  "image/jpeg",
-    ".svg":   "image/svg+xml",
-    ".ico":   "image/x-icon",
-    ".json":  "application/json",
-    ".woff":  "font/woff",
-    ".woff2": "font/woff2",
-  };
-
-  const contentType = mimeTypes[ext] || "application/octet-stream";
-  return new Response(readFileSync(filePath), {
-    headers: { "Content-Type": contentType },
-  });
-}
-
-/* ---------------- SERVER ---------------- */
 serve({
   port: PORT,
   async fetch(req) {
     const url = new URL(req.url);
 
-    /* ---- CORS PREFLIGHT ---- */
     if (req.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
@@ -122,29 +66,21 @@ serve({
       });
     }
 
-    /* ---- POST CONTACT ---- */
     if (url.pathname === "/api/contact" && req.method === "POST") {
       try {
         const { name, email, message } = await req.json();
-
-        if (!name || !email || !message) {
+        if (!name || !email || !message)
           return jsonResponse({ error: "Missing required fields" }, 400);
-        }
 
-        const result = db
-          .prepare(
-            "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
-          )
-          .run(name, email, message);
+        const result = db.prepare(
+          "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
+        ).run(name, email, message);
 
         let mailResult: { sent: boolean; error?: string } = { sent: false };
-
         if (transporter) {
           try {
             await transporter.sendMail({
-              from: CONTACT_FROM,
-              to: CONTACT_TO,
-              replyTo: email,
+              from: CONTACT_FROM, to: CONTACT_TO, replyTo: email,
               subject: `New contact from ${name}`,
               text: `${name} <${email}>\n\n${message}`,
             });
@@ -154,21 +90,39 @@ serve({
             mailResult = { sent: false, error: String(err) };
           }
         }
-
         return jsonResponse({ id: result.lastInsertRowid, mail: mailResult }, 201);
-      } catch (err) {
+      } catch {
         return jsonResponse({ error: "Invalid request" }, 400);
       }
     }
 
-    /* ---- GET CONTACTS (ADMIN) ---- */
     if (url.pathname === "/api/contact" && req.method === "GET") {
       if (!isAdmin(req)) return jsonResponse({ error: "Unauthorized" }, 401);
       const rows = [...db.query("SELECT * FROM contacts ORDER BY id DESC")];
       return jsonResponse(rows);
     }
 
-   
+    // Serve static files using Bun's native file serving
+    let filePath = path.join(PUBLIC_DIR, url.pathname);
+
+    // Default to index.html for root or unknown routes
+    if (url.pathname === "/" || url.pathname === "") {
+      filePath = path.join(PUBLIC_DIR, "index.html");
+    }
+
+    const bunFile = file(filePath);
+    if (await bunFile.exists()) {
+      return new Response(bunFile);
+    }
+
+    // SPA fallback — serve index.html for all non-asset routes
+    const indexFile = file(path.join(PUBLIC_DIR, "index.html"));
+    if (await indexFile.exists()) {
+      return new Response(indexFile, {
+        headers: { "Content-Type": "text/html" },
+      });
+    }
+
     return new Response("Not found", { status: 404 });
   },
 });
