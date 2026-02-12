@@ -2,23 +2,29 @@ import { serve } from "bun";
 import { Database } from "bun:sqlite";
 import path from "path";
 import nodemailer from "nodemailer";
+import { readFileSync, existsSync } from "fs";
 
 /* ---------------- ENV ---------------- */
 const PORT = Number(process.env.PORT || 3000);
 
 const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = Number(process.env.SMTP_PORT || 2525);
+const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
 
 const CONTACT_FROM =
-  process.env.CONTACT_FROM || "Murphy Portfolio <murphy.usunobun@dci-student.org>";
-const CONTACT_TO = process.env.CONTACT_TO || "murphy.usunobun@dci-student.org";
+  process.env.CONTACT_FROM || "Murphy Portfolio <djmurphyluv@gmail.com>";
+const CONTACT_TO = process.env.CONTACT_TO || "djmurphyluv@gmail.com";
 
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "admin123";
 
+// Frontend static files (built by Vite, copied into ./public by Docker)
+const PUBLIC_DIR = path.resolve(import.meta.dir, "public");
+const INDEX_HTML = path.join(PUBLIC_DIR, "index.html");
+
 console.log("🚀 Running on PORT:", PORT);
 console.log("SMTP configured:", Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS));
+console.log("Serving frontend from:", PUBLIC_DIR);
 
 /* ---------------- DATABASE ---------------- */
 const dbPath = path.resolve(process.cwd(), "data.sqlite");
@@ -41,7 +47,7 @@ if (SMTP_HOST && SMTP_USER && SMTP_PASS) {
   transporter = nodemailer.createTransport({
     host: SMTP_HOST,
     port: SMTP_PORT,
-    secure: false, // Mailtrap uses STARTTLS on port 2525, not SSL
+    secure: false, // STARTTLS
     auth: {
       user: SMTP_USER,
       pass: SMTP_PASS,
@@ -68,6 +74,31 @@ function isAdmin(req: Request) {
   const auth = req.headers.get("authorization");
   if (auth?.startsWith("Bearer ")) return auth.slice(7) === ADMIN_TOKEN;
   return req.headers.get("x-admin-token") === ADMIN_TOKEN;
+}
+
+// Serve a static file from the public directory
+function serveStatic(filePath: string): Response | null {
+  if (!existsSync(filePath)) return null;
+
+  const ext = path.extname(filePath);
+  const mimeTypes: Record<string, string> = {
+    ".html":  "text/html",
+    ".js":    "application/javascript",
+    ".css":   "text/css",
+    ".png":   "image/png",
+    ".jpg":   "image/jpeg",
+    ".jpeg":  "image/jpeg",
+    ".svg":   "image/svg+xml",
+    ".ico":   "image/x-icon",
+    ".json":  "application/json",
+    ".woff":  "font/woff",
+    ".woff2": "font/woff2",
+  };
+
+  const contentType = mimeTypes[ext] || "application/octet-stream";
+  return new Response(readFileSync(filePath), {
+    headers: { "Content-Type": contentType },
+  });
 }
 
 /* ---------------- SERVER ---------------- */
@@ -97,14 +128,12 @@ serve({
           return jsonResponse({ error: "Missing required fields" }, 400);
         }
 
-        // Save to database
         const result = db
           .prepare(
             "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
           )
           .run(name, email, message);
 
-        // Send email
         let mailResult: { sent: boolean; error?: string } = { sent: false };
 
         if (transporter) {
@@ -116,7 +145,6 @@ serve({
               subject: `New contact from ${name}`,
               text: `${name} <${email}>\n\n${message}`,
             });
-
             mailResult = { sent: true };
           } catch (err) {
             console.error("❌ Mail send error:", err);
@@ -124,13 +152,7 @@ serve({
           }
         }
 
-        return jsonResponse(
-          {
-            id: result.lastInsertRowid,
-            mail: mailResult,
-          },
-          201
-        );
+        return jsonResponse({ id: result.lastInsertRowid, mail: mailResult }, 201);
       } catch (err) {
         return jsonResponse({ error: "Invalid request" }, 400);
       }
@@ -138,46 +160,12 @@ serve({
 
     /* ---- GET CONTACTS (ADMIN) ---- */
     if (url.pathname === "/api/contact" && req.method === "GET") {
-      if (!isAdmin(req)) {
-        return jsonResponse({ error: "Unauthorized" }, 401);
-      }
-
+      if (!isAdmin(req)) return jsonResponse({ error: "Unauthorized" }, 401);
       const rows = [...db.query("SELECT * FROM contacts ORDER BY id DESC")];
       return jsonResponse(rows);
     }
 
-
-/* ---- SERVE STATIC FILES ---- */
-if (req.method === "GET") {
-  let pathname = url.pathname;
-
-  // Default route
-  if (pathname === "/") {
-    pathname = "/index.html";
-  }
-
-  const filePath = path.join(process.cwd(), "web", "dist", pathname);
-
-  const file = Bun.file(filePath);
-
-  if (await file.exists()) {
-    return new Response(file);
-  }
-
-  // SPA fallback (important for client-side routing)
-  const indexFile = Bun.file(
-    path.join(process.cwd(), "web", "dist", "index.html")
-  );
-
-  if (await indexFile.exists()) {
-    return new Response(indexFile);
-  }
-}
-
-
-
-
-    /* ---- 404 ---- */
+   
     return new Response("Not found", { status: 404 });
   },
 });
