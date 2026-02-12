@@ -1,0 +1,49 @@
+
+
+
+
+
+
+/* Background Effects */
+.tech-bg {
+  background: radial-gradient(circle at 30% 30%, rgba(0,255,255,0.1), transparent 70%), 
+              radial-gradient(circle at 70% 70%, rgba(255,0,255,0.1), transparent 70%);
+  mix-blend-mode: screen;
+  animation: bgMove 15s infinite alternate;
+}
+
+.color-swirl {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, #ff00ff33, #00ffff33, #ffff0033, #ff00ff33);
+  opacity: 0.08;
+  animation: swirl 30s linear infinite;
+  z-index: -5;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 0%, 100% 100%; }
+  100% { background-position: 100% 100%, 0% 0%; }
+}
+
+@keyframes swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Project Card Hover */
+.project-card img {
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Modal */
+img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0.5rem;
+}

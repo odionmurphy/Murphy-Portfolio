@@ -1,0 +1,495 @@
+/* Minimal styles; Tailwind is loaded via CDN in index.html */
+html,
+body,
+#root {
+  height: 100%;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles — Tailwind provides most utilities. */
+:root {
+  --brand: #0ea5a4;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
+  background:
+    radial-gradient(
+      1200px 600px at 85% 15%,
+      rgba(255, 210, 110, 0.06),
+      transparent 8%
+    ),
+    radial-gradient(
+      900px 400px at 10% 80%,
+      rgba(160, 200, 255, 0.03),
+      transparent 12%
+    ),
+    linear-gradient(180deg, #071424 0%, #0b1725 50%, #071423 100%);
+  color: #e6eef6;
+}
+
+/* Container width tuned for content */
+.container {
+  max-width: 1100px;
+}
+
+/* Small utility for subtle card shadows used in multiple places */
+.card {
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+}
+
+/* Smooth scrolling for anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hover and focus animation for all clickables */
+a,
+button,
+.inline-block {
+  transition:
+    transform 160ms ease,
+    color 180ms ease,
+    background-color 180ms ease;
+}
+a:hover,
+button:hover,
+.inline-block:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* Subtle focus outline */
+a:focus,
+button:focus {
+  outline: 3px solid rgba(250, 204, 21, 0.18);
+  outline-offset: 3px;
+}
+
+/* Smoke background effect */
+:root {
+  --smoke-color: rgba(255, 200, 50, 0.08);
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -10%;
+  width: 70vmax;
+  height: 70vmax;
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(250, 200, 60, 0.08),
+      transparent 18%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(120, 160, 220, 0.05),
+      transparent 22%
+    );
+  filter: blur(80px) saturate(110%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Large multi-color smoke at left (screenshot style) */
+body::after {
+  content: "";
+  position: fixed;
+  left: -10vw;
+  top: 0;
+  width: 60vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      35% 25% at 20% 15%,
+      rgba(255, 220, 120, 0.28),
+      transparent 18%
+    ),
+    radial-gradient(
+      45% 35% at 30% 50%,
+      rgba(90, 180, 255, 0.22),
+      transparent 25%
+    ),
+    radial-gradient(
+      40% 30% at 60% 40%,
+      rgba(255, 110, 170, 0.2),
+      transparent 20%
+    ),
+    radial-gradient(
+      50% 40% at 18% 72%,
+      rgba(120, 255, 160, 0.18),
+      transparent 22%
+    ),
+    radial-gradient(
+      60% 48% at 8% 40%,
+      rgba(255, 240, 200, 0.12),
+      transparent 28%
+    );
+  filter: blur(36px) contrast(120%) saturate(160%);
+  mix-blend-mode: screen;
+  opacity: 1;
+  transform-origin: center;
+  animation: smoke-drift 16s ease-in-out infinite;
+}
+
+@keyframes smoke-drift {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(3vh) rotate(6deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+/* Optional layered swirls using mask for a soft swirl look */
+.color-swirl {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.color-swirl::before {
+  content: "";
+  position: absolute;
+  left: -15%;
+  top: 10%;
+  width: 50vmin;
+  height: 50vmin;
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      rgba(255, 240, 210, 0.48),
+      transparent 12%
+    ),
+    radial-gradient(
+      circle at 65% 65%,
+      rgba(180, 220, 255, 0.42),
+      transparent 16%
+    ),
+    radial-gradient(
+      circle at 50% 70%,
+      rgba(220, 180, 255, 0.26),
+      transparent 20%
+    );
+  filter: blur(64px) saturate(180%);
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: swirl-rotate 24s linear infinite;
+}
+
+@keyframes swirl-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tech background used on Projects page */
+.tech-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      60% 60% at 50% 30%,
+      rgba(110, 78, 166, 0.35),
+      transparent 35%
+    ),
+    radial-gradient(
+      40% 40% at 80% 70%,
+      rgba(80, 40, 120, 0.18),
+      transparent 30%
+    ),
+    linear-gradient(180deg, rgba(8, 12, 20, 0.8), rgba(6, 10, 18, 0.95));
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.tech-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  mix-blend-mode: overlay;
+  opacity: 0.18;
+  animation: tech-pulse 8s ease-in-out infinite;
+}
+@keyframes tech-pulse {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 0.14;
+  }
+  50% {
+    transform: scale(1.02) translateY(-6px);
+    opacity: 0.22;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.14;
+  }
+}
+
+/* Footer styling */
+.site-footer {
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.04),
+    rgba(2, 6, 23, 0.08)
+  );
+  color: #cbd5e1;
+}
+
+/* Skills marquee (auto horizontal scroll) */
+.skill-marquee {
+  overflow: hidden;
+  position: relative;
+}
+.skill-track {
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
+  animation: marquee 18s linear infinite;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* hide native scrollbar for the marquee container on WebKit */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* cursor-follow smoke effect (created via JS) */
+.cursor-smoke {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(255, 230, 140, 0.22),
+    rgba(255, 200, 80, 0.08) 30%,
+    transparent 60%
+  );
+
+  transform: translate(-50%, -50%) scale(0.6);
+  animation: smoke 900ms forwards ease-out;
+  filter: blur(6px) saturate(120%);
+  z-index: 9999;
+}
+
+@keyframes smoke {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -40%) scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Animated avatar ring */
+.avatar-ring {
+  position: relative;
+  display: inline-block;
+}
+.avatar-ring::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  padding: 6px;
+  background: conic-gradient(from 0deg, #ffd166, #ff6b6b, #9b5cff, #ffd166);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: ring-rotate 4s linear infinite;
+  filter: blur(6px) saturate(120%);
+  pointer-events: none;
+}
+@keyframes ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hero JUNIOR emphasis */
+.hero-junior {
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffd166;
+  text-transform: uppercase;
+  font-size: 1.05em;
+  margin-right: 0.35rem;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* Enhanced footer */
+.site-footer {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 20, 0.45),
+    rgba(6, 10, 18, 0.6)
+  );
+  color: #e6eaf2;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -8px 30px rgba(2, 6, 23, 0.5);
+}
+.site-footer a {
+  color: #ffd166;
+}
+
+/* Avatar core pulse/glow */
+.avatar-core {
+  position: relative;
+  transition: transform 220ms ease;
+  will-change: transform, box-shadow;
+  animation: core-pulse 2800ms ease-in-out infinite;
+}
+.avatar-core::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+@keyframes core-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 210, 90, 0);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 12px 30px 6px rgba(255, 200, 80, 0.12);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 210, 90, 0);
+    transform: scale(1);
+  }
+}
+
+/* Projects specific styles to match screenshot */
+.project-grid {
+  margin-top: 1rem;
+}
+.project-card {
+  border: 2px solid rgba(16, 185, 129, 0.06);
+  background: linear-gradient(
+    180deg,
+    rgba(4, 6, 12, 0.45),
+    rgba(6, 8, 14, 0.65)
+  );
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+/* Typing cursor */
+.typing-cursor {
+  display: inline-block;
+  margin-left: 6px;
+  color: #ffd166;
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.project-hero-frame {
+  padding: 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 8, 18, 0.06),
+    rgba(6, 8, 18, 0.02)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+.project-hero {
+  border-radius: 0.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(6, 200, 180, 0.06);
+  box-shadow: 0 12px 40px rgba(3, 10, 30, 0.45);
+}
+.project-hero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-title {
+  color: #e6f9f3;
+}
+
+/* stronger teal glow for screenshot cards */
+.project-card {
+  position: relative;
+}
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 197, 94, 0.06),
+    rgba(6, 182, 212, 0.04)
+  );
+  z-index: -1;
+  filter: blur(18px) saturate(130%);
+  opacity: 0.9;
+}
+
+/* layout polish: make grid images taller on large screens */
+@media (min-width: 1024px) {
+  .project-hero img {
+    height: 420px;
+  }
+}
+
+/* increase card padding on larger screens for screenshot look */
+@media (min-width: 768px) {
+  .project-card {
+    border-radius: 1.25rem;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "murphy-portfolio",
+  "private": true,
+  "workspaces": [
+    "server",
+    "web"
+  ]
+}

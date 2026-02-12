@@ -1,0 +1,250 @@
+/* App.css */
+
+
+
+/* Neon trailing smoke cursor */
+.cursor-smoke-neon {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  filter: blur(6px) drop-shadow(0 0 8px white);
+}
+
+/* Avatar ring */
+.avatar-ring {
+  position: relative;
+  display: inline-block;
+}
+.avatar-ring::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  padding: 6px;
+  background: conic-gradient(from 0deg, #ffd166, #ff6b6b, #9b5cff, #ffd166);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: ring-rotate 4s linear infinite;
+  filter: blur(6px) saturate(120%);
+  pointer-events: none;
+}
+
+@keyframes ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Avatar core pulse/glow */
+.avatar-core {
+  position: relative;
+  animation: core-pulse 2800ms ease-in-out infinite;
+}
+@keyframes core-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 210, 90, 0);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 12px 30px 6px rgba(255, 200, 80, 0.12);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 210, 90, 0);
+    transform: scale(1);
+  }
+}
+
+/* Hero JUNIOR emphasis */
+.hero-junior {
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffd166;
+  text-transform: uppercase;
+  font-size: 1.04em;
+  margin-right: 0.35rem;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* Footer styling */
+.site-footer {
+  background: linear-gradient(180deg, rgba(8, 12, 20, 0.45), rgba(6, 10, 18, 0.6));
+  color: #1c55c5;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -8px 30px rgba(2, 6, 23, 0.5);
+}
+.site-footer a {
+  color: #137259;
+  transition: color 0.2s ease;
+}
+.site-footer a:hover {
+  color: #6eff6b;
+}
+
+/* Hero button animations */
+a, button, .inline-block {
+  transition: transform 160ms ease, color 180ms ease, background-color 180ms ease;
+}
+a:hover, button:hover, .inline-block:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+a:focus, button:focus {
+  outline: 3px solid rgba(250, 204, 21, 0.18);
+  outline-offset: 3px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Global body and background */
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 85% 15%, rgba(255, 210, 110, 0.06), transparent 8%),
+              radial-gradient(900px 400px at 10% 80%, rgba(160, 200, 255, 0.03), transparent 12%),
+              linear-gradient(180deg, #071424 0%, #0b1725 50%, #071423 100%);
+  color: #e6eef6;
+}
+
+/* Floating smoke layers */
+body::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -10%;
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(circle at 20% 25%, rgba(250, 200, 60, 0.08), transparent 18%),
+              radial-gradient(circle at 80% 70%, rgba(120, 160, 220, 0.05), transparent 22%);
+  filter: blur(80px) saturate(110%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: "";
+  position: fixed;
+  left: -10vw;
+  top: 0;
+  width: 60vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(35% 25% at 20% 15%, rgba(255, 220, 120, 0.28), transparent 18%),
+              radial-gradient(45% 35% at 30% 50%, rgba(90, 180, 255, 0.22), transparent 25%),
+              radial-gradient(40% 30% at 60% 40%, rgba(255, 110, 170, 0.2), transparent 20%),
+              radial-gradient(50% 40% at 18% 72%, rgba(120, 255, 160, 0.18), transparent 22%),
+              radial-gradient(60% 48% at 8% 40%, rgba(255, 240, 200, 0.12), transparent 28%);
+  filter: blur(36px) contrast(120%) saturate(160%);
+  mix-blend-mode: screen;
+  animation: smoke-drift 16s ease-in-out infinite;
+}
+
+@keyframes smoke-drift {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(3vh) rotate(6deg) scale(1.02); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+
+/* Neon animated background for About Me section */
+.neon-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 2rem;
+  background: radial-gradient(circle at 20% 30%, rgba(255,200,80,0.06), transparent 20%),
+              radial-gradient(circle at 80% 70%, rgba(120,160,255,0.05), transparent 25%);
+  filter: blur(120px) saturate(120%);
+  z-index: -1;
+  animation: neonShift 25s ease-in-out infinite alternate;
+}
+
+@keyframes neonShift {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); }
+  50% { transform: translateX(20px) translateY(-10px) rotate(180deg); }
+  100% { transform: translateX(0) translateY(0) rotate(360deg); }
+}
+
+
+
+/* Skills Marquee */
+.skill-marquee {
+  overflow: hidden;
+  position: relative;
+}
+.skill-track {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  animation: marquee 18s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+/* hide native scrollbar for WebKit */
+.skill-marquee::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+/* ================================
+   Desktop-only section glow effect
+   ================================ */
+
+/* Base section style */
+.glow-section {
+  position: relative;
+  border-radius: 1rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Desktop hover only */
+@media (hover: hover) and (pointer: fine) {
+  .glow-section:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 25px rgba(255, 200, 80, 0.35),
+      0 0 50px rgba(15, 1, 8, 0.25),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  /* Subtle animated glow aura */
+  .glow-section::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 200, 80, 0.35),
+      rgba(236, 72, 153, 0.35),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(18px);
+  }
+
+  .glow-section:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Mobile & touch devices → NO hover effects */
+@media (hover: none), (pointer: coarse) {
+  .glow-section,
+  .glow-section::after {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
