@@ -19,7 +19,8 @@ const CONTACT_TO = process.env.CONTACT_TO || "djmurphyluv@gmail.com";
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "admin123";
 
 // Frontend static files (built by Vite, copied into ./public by Docker)
-const PUBLIC_DIR = path.resolve(import.meta.dir, "public");
+const PUBLIC_DIR = path.resolve(process.cwd(), "public");
+
 const INDEX_HTML = path.join(PUBLIC_DIR, "index.html");
 
 console.log("🚀 Running on PORT:", PORT);
