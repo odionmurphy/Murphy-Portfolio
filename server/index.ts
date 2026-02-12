@@ -26,6 +26,8 @@ const INDEX_HTML = path.join(PUBLIC_DIR, "index.html");
 console.log("🚀 Running on PORT:", PORT);
 console.log("SMTP configured:", Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS));
 console.log("Serving frontend from:", PUBLIC_DIR);
+console.log("CWD:", process.cwd());
+console.log("import.meta.dir:", import.meta.dir);
 
 /* ---------------- DATABASE ---------------- */
 const dbPath = path.resolve(process.cwd(), "data.sqlite");
