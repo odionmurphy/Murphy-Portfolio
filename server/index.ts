@@ -146,6 +146,37 @@ serve({
       return jsonResponse(rows);
     }
 
+
+/* ---- SERVE STATIC FILES ---- */
+if (req.method === "GET") {
+  let pathname = url.pathname;
+
+  // Default route
+  if (pathname === "/") {
+    pathname = "/index.html";
+  }
+
+  const filePath = path.join(process.cwd(), "web", "dist", pathname);
+
+  const file = Bun.file(filePath);
+
+  if (await file.exists()) {
+    return new Response(file);
+  }
+
+  // SPA fallback (important for client-side routing)
+  const indexFile = Bun.file(
+    path.join(process.cwd(), "web", "dist", "index.html")
+  );
+
+  if (await indexFile.exists()) {
+    return new Response(indexFile);
+  }
+}
+
+
+
+
     /* ---- 404 ---- */
     return new Response("Not found", { status: 404 });
   },
