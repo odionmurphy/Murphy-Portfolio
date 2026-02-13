@@ -108,7 +108,7 @@ export default function App() {
                     Contact
                   </a>
                   <a
-                    href="#"
+                    href="usu-Resume-.pdf"
                     className="inline-block px-4 py-2   border border-yellow-400 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black transition-colors duration-300"
                   >
                     Download CV
