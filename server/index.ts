@@ -1,22 +1,25 @@
+
+
+
+
+
 import { serve, file } from "bun";
 import { Database } from "bun:sqlite";
 import path from "path";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
+/* ---------------- ENV ---------------- */
 const PORT = Number(process.env.PORT || 3000);
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const CONTACT_FROM = process.env.CONTACT_FROM || "Murphy Portfolio <djmurphyluv@gmail.com>";
-const CONTACT_TO = process.env.CONTACT_TO || "djmurphyluv@gmail.com";
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const CONTACT_TO = process.env.CONTACT_TO || "murphy.usunobun@dci-student.org";
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "admin123";
 const PUBLIC_DIR = path.join(import.meta.dir, "public");
 
 console.log("🚀 Running on PORT:", PORT);
-console.log("SMTP configured:", Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS));
+console.log("Resend configured:", Boolean(RESEND_API_KEY));
 console.log("PUBLIC_DIR:", PUBLIC_DIR);
 
+/* ---------------- DATABASE ---------------- */
 const db = new Database(path.join(import.meta.dir, "data.sqlite"));
 db.run(`CREATE TABLE IF NOT EXISTS contacts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,14 +27,11 @@ db.run(`CREATE TABLE IF NOT EXISTS contacts (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )`);
 
-let transporter: nodemailer.Transporter | null = null;
-if (SMTP_HOST && SMTP_USER && SMTP_PASS) {
-  transporter = nodemailer.createTransport({
-    host: SMTP_HOST, port: SMTP_PORT, secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-}
+/* ---------------- RESEND ---------------- */
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
+if (!resend) console.warn("⚠ RESEND_API_KEY missing — email disabled");
 
+/* ---------------- HELPERS ---------------- */
 function jsonResponse(data: any, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -50,11 +50,13 @@ function isAdmin(req: Request) {
   return req.headers.get("x-admin-token") === ADMIN_TOKEN;
 }
 
+/* ---------------- SERVER ---------------- */
 serve({
   port: PORT,
   async fetch(req) {
     const url = new URL(req.url);
 
+    /* ---- CORS PREFLIGHT ---- */
     if (req.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
@@ -66,21 +68,26 @@ serve({
       });
     }
 
+    /* ---- POST CONTACT ---- */
     if (url.pathname === "/api/contact" && req.method === "POST") {
       try {
         const { name, email, message } = await req.json();
         if (!name || !email || !message)
           return jsonResponse({ error: "Missing required fields" }, 400);
 
+        // Save to database
         const result = db.prepare(
           "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
         ).run(name, email, message);
 
+        // Send email via Resend
         let mailResult: { sent: boolean; error?: string } = { sent: false };
-        if (transporter) {
+        if (resend) {
           try {
-            await transporter.sendMail({
-              from: CONTACT_FROM, to: CONTACT_TO, replyTo: email,
+            await resend.emails.send({
+              from: "Murphy Portfolio <onboarding@resend.dev>",
+              to: CONTACT_TO,
+              replyTo: email,
               subject: `New contact from ${name}`,
               text: `${name} <${email}>\n\n${message}`,
             });
@@ -90,22 +97,22 @@ serve({
             mailResult = { sent: false, error: String(err) };
           }
         }
+
         return jsonResponse({ id: result.lastInsertRowid, mail: mailResult }, 201);
       } catch {
         return jsonResponse({ error: "Invalid request" }, 400);
       }
     }
 
+    /* ---- GET CONTACTS (ADMIN) ---- */
     if (url.pathname === "/api/contact" && req.method === "GET") {
       if (!isAdmin(req)) return jsonResponse({ error: "Unauthorized" }, 401);
       const rows = [...db.query("SELECT * FROM contacts ORDER BY id DESC")];
       return jsonResponse(rows);
     }
 
-    // Serve static files using Bun's native file serving
+    /* ---- SERVE STATIC FILES ---- */
     let filePath = path.join(PUBLIC_DIR, url.pathname);
-
-    // Default to index.html for root or unknown routes
     if (url.pathname === "/" || url.pathname === "") {
       filePath = path.join(PUBLIC_DIR, "index.html");
     }
@@ -115,7 +122,7 @@ serve({
       return new Response(bunFile);
     }
 
-    // SPA fallback — serve index.html for all non-asset routes
+    // SPA fallback
     const indexFile = file(path.join(PUBLIC_DIR, "index.html"));
     if (await indexFile.exists()) {
       return new Response(indexFile, {
