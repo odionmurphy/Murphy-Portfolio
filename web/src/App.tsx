@@ -111,7 +111,7 @@ export default function App() {
             data-testid="mobile-nav"
             className="md:hidden fixed inset-0 z-40 bg-gray-900/95 backdrop-blur flex flex-col items-center justify-center gap-8 text-xl"
           >
-            {(["home", "projects"] as const).map((r) => (
+            {(["home", "projects", "contact"] as const).map((r) => (
               
                <a key={r}
                 href={"#" + r}
