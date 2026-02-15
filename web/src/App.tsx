@@ -246,7 +246,7 @@ export default function App() {
 
         <footer className="site-footer text-center p-4 sm:p-6 text-xs sm:text-sm">
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div>© {new Date().getFullYear()} Murphy — Built with React & PostgressSql</div>
+            <div>© {new Date().getFullYear()} Murphy — Built with React & Postgress</div>
             <div className="flex gap-4">
               <a href="#projects" className="text-green-400 hover:underline">Projects</a>
               <a href="#contact" className="text-gray-300 hover:underline">Contact</a>

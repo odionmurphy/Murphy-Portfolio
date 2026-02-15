@@ -126,11 +126,11 @@ export default function Contact() {
         </form>
 
         <div className="contact-links">
-          <a href="https://github.com/" target="_blank" rel="noreferrer">
+          <a href="https://github.com/odionmurphy" target="_blank" rel="noreferrer">
             ♟ GitHub
           </a>
-          <a href="#">🔗 LinkedIn</a>
-          <a href="mailto:you@example.com">✉ Email</a>
+          <a href="https://www.linkedin.com/in/murphy-usunobun-5a159a226/">🔗 LinkedIn</a>
+        
         </div>
       </div>
     </section>
