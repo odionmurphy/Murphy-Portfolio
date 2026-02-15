@@ -4,5 +4,12 @@
   "workspaces": [
     "server",
     "web"
-  ]
+  ],
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitest/coverage-v8": "^4.0.18",
+    "jsdom": "^28.0.0",
+    "vitest": "^4.0.18"
+  }
 }
