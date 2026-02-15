@@ -144,7 +144,7 @@ export default function App() {
                     <a href="#projects" className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
                       View Projects
                     </a>
-                    <a href="#contact" className="inline-block px-4 py-2 border border-gray-600 rounded-md text-gray-200 hover:border-yellow-400 hover:text-yellow-400 transition-all text-sm sm:text-base">
+                    <a href="#contact" className="inline-block px-4 py-2  hover:border-yellow-400 hover:text-yellow-400 transition-all text-sm sm:text-base       bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 ">
                       Contact
                     </a>
                     <a href="usu-Resume-.pdf" className="inline-block px-4 py-2 border border-yellow-400 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black transition-colors duration-300 text-sm sm:text-base">
@@ -246,7 +246,7 @@ export default function App() {
 
         <footer className="site-footer text-center p-4 sm:p-6 text-xs sm:text-sm">
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div>© {new Date().getFullYear()} Murphy — Built with React & Tailwind</div>
+            <div>© {new Date().getFullYear()} Murphy — Built with React & PostgressSql</div>
             <div className="flex gap-4">
               <a href="#projects" className="text-green-400 hover:underline">Projects</a>
               <a href="#contact" className="text-gray-300 hover:underline">Contact</a>
