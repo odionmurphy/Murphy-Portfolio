@@ -93,7 +93,7 @@ export default function App() {
         <button
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
-          className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-gray-800 border border-gray-700 text-white"
+          className="md:hidden absolute top-3 right-4 z-50 p-2 rounded-md bg-gray-800 border border-gray-700 text-white"
           onClick={() => setMenuOpen((o) => !o)}
           data-testid="mobile-menu-toggle"
         >

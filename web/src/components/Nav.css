@@ -8,6 +8,7 @@
    ========================= */
 
 .nav-header {
+  position: static;
   background: linear-gradient(
     180deg,
     rgba(8, 12, 20, 0.95),
@@ -119,6 +120,13 @@
   }
 
   .nav-role {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .nav-links {
     display: none;
   }
 }

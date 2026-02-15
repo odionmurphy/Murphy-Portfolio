@@ -65,11 +65,12 @@ import React from "react";
 import "./Nav.css";
 
 export default function Nav() {
-const links = [
+  const links = [
     { href: "#", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
+    
   ];
 
   function isActive(href: string) {
