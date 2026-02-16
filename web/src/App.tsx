@@ -132,7 +132,7 @@ export default function App() {
                 className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-4 sm:pt-0">
                 <div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 flex flex-wrap items-baseline gap-2 sm:gap-3">
-                    <span className="hero-junior text-4xl sm:text-5xl md:text-6xl animate-bounce-neon">Junior</span>
+                    
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 opacity-90">
                       Frontend Developer
                     </span>
