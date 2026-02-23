@@ -16,6 +16,7 @@ const categories = [
 ];
 
 const allSkills = [
+   { name: "Ai-Automation", icon: "🤖" },
   { name: "JavaScript", icon: "⚡" },
   { name: "React", icon: "⚛️" },
   { name: "TypeScript", icon: "T" },
@@ -27,16 +28,20 @@ const allSkills = [
   { name: "Figma", icon: "🎨" },
   { name: "Vite", icon: "⚡" },
   { name: "Testing", icon: "✅" },
+ 
   { name: "Accessibility", icon: "♿" },
   { name: "Performance", icon: "🚀" },
   { name: "Next.js", icon: "⏭️" },
-  { name: "Redux", icon: "🔁" },
   { name: "GraphQL", icon: "🔗" },
   { name: "REST APIs", icon: "🌐" },
   { name: "CI/CD", icon: "🔄" },
   { name: "Webpack", icon: "📦" },
   { name: "PostgreSQL", icon: "🐘" },
-  { name: "PHP", icon: "🐘" }
+  { name: "PHP", icon: "🐘" },
+  { name: "wordpress", icon: "W" },
+  { name: "SEO", icon: "🔍" },
+  { name: "laravel", icon: "L" },
+  
 
 
 ];
