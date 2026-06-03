@@ -51,6 +51,9 @@ const WHAT_I_DO = [
 export default function App() {
   const [route, setRoute] = useState<Route>("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cvOpen, setCvOpen] = useState(false);
+
+
 
   const handleHash = useCallback(() => {
     const h = location.hash.replace("#", "");
@@ -189,12 +192,13 @@ export default function App() {
                     >
                       Contact
                     </a>
-                    <a
-                      href="usu-Resume-.pdf"
+
+                    <button
+                      onClick={() => setCvOpen(true)}
                       className="inline-block px-4 py-2 border border-yellow-400 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black transition-colors duration-300 text-sm sm:text-base"
                     >
                       Checkout CV
-                    </a>
+                    </button>
                   </div>
                 </div>
                 <div className="flex justify-center md:justify-end mt-6 md:mt-0">
@@ -280,9 +284,18 @@ export default function App() {
                         About Me
                       </h2>
                       <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
-                        I build web applications that are visually polished and high-performing from responsive frontends to the backend systems behind them. Creating something from scratch and launching it for people to use is what drew me to development, and that motivation still drives me.
-
-                       I focus on how things work, not just how they look — clean code, solid architecture, and thoughtful technical decisions. This has led me toward full-stack development and AI automation, where I’m certified and building intelligent workflows using LLMs. I'm looking to join a team where I can ship meaningful work, keep learning, and grow fast.
+                        I build web applications that are visually polished and
+                        high-performing from responsive frontends to the backend
+                        systems behind them. Creating something from scratch and
+                        launching it for people to use is what drew me to
+                        development, and that motivation still drives me. I
+                        focus on how things work, not just how they look — clean
+                        code, solid architecture, and thoughtful technical
+                        decisions. This has led me toward full-stack development
+                        and AI automation, where I’m certified and building
+                        intelligent workflows using LLMs. I'm looking to join a
+                        team where I can ship meaningful work, keep learning,
+                        and grow fast.
                       </p>
                       <h3 className="text-lg sm:text-xl font-semibold mb-4">
                         What I'm Doing
@@ -356,6 +369,38 @@ export default function App() {
             </div>
           </div>
         </footer>
+
+        {cvOpen && (
+  <div
+    className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+    onClick={() => setCvOpen(false)}
+  >
+    <div
+      className="relative w-full max-w-4xl h-[90vh] mx-4 rounded-xl overflow-hidden shadow-2xl border border-gray-700 bg-white"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
+        <span className="text-sm text-gray-300 font-medium">
+          Murphy CV
+        </span>
+
+        <button
+          onClick={() => setCvOpen(false)}
+          className="text-gray-400 hover:text-white text-xl"
+        >
+          ✕
+        </button>
+      </div>
+
+      <iframe
+        src="/Murphy_CV_INTERSHINP.pdf#toolbar=0&navpanes=0&scrollbar=1"
+        title="Murphy CV"
+        className="w-full h-full"
+      />
+    </div>
+  </div>
+)}
+
       </div>
     </section>
   );

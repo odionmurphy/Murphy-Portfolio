@@ -1,104 +1,313 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
-import React from "react";
+cat > /home/dci-student/Desktop/my-project/Murphy-portfolio/web/src/App.tsx << 'ENDOFFILE'
+import React, { useEffect, useState, useCallback } from "react";
+import Nav from "./components/Nav";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import Skills from "./pages/Skills";
+import AdminContacts from "./pages/AdminContacts";
+import Typing from "./components/Typing";
+import "./App.css";
 
-vi.mock("./components/Nav", () => ({ default: () => <nav data-testid="nav">Nav</nav> }));
-vi.mock("./components/Typing", () => ({ default: ({ text }: { text: string }) => <span>{text}</span> }));
-vi.mock("./pages/Projects", () => ({ default: () => <div data-testid="projects-page">Projects</div> }));
-vi.mock("./pages/Contact", () => ({ default: () => <div data-testid="contact-page">Contact</div> }));
-vi.mock("./pages/Skills", () => ({ default: () => <div data-testid="skills-section">Skills</div> }));
-vi.mock("./pages/AdminContacts", () => ({ default: () => <div data-testid="admin-page">Admin</div> }));
-vi.mock("./App.css", () => ({}));
+export type Route = "home" | "projects" | "contact" | "admin";
 
-import App, { getRouteFromHash, isPageRoute } from "./App";
+export function getRouteFromHash(hash: string): Route {
+  const h = hash.replace("#", "");
+  if (h === "projects" || h === "contact" || h === "admin") return h as Route;
+  return "home";
+}
 
-describe("getRouteFromHash", () => {
-  it("returns 'projects' for #projects", () => expect(getRouteFromHash("#projects")).toBe("projects"));
-  it("returns 'contact' for #contact", () => expect(getRouteFromHash("#contact")).toBe("contact"));
-  it("returns 'admin' for #admin", () => expect(getRouteFromHash("#admin")).toBe("admin"));
-  it("returns 'home' for unknown hash", () => expect(getRouteFromHash("#about")).toBe("home"));
-  it("returns 'home' for empty string", () => expect(getRouteFromHash("")).toBe("home"));
-});
+export function isPageRoute(route: Route): boolean {
+  return route === "projects" || route === "contact" || route === "admin";
+}
 
-describe("isPageRoute", () => {
-  it("true for projects", () => expect(isPageRoute("projects")).toBe(true));
-  it("true for contact", () => expect(isPageRoute("contact")).toBe(true));
-  it("true for admin", () => expect(isPageRoute("admin")).toBe(true));
-  it("false for home", () => expect(isPageRoute("home")).toBe(false));
-});
+const SOFT_SKILLS = [
+  "Problem Solving",
+  "Teamwork",
+  "Time Management",
+  "Communication",
+  "Adaptability",
+  "Attention to Detail",
+  "Critical Thinking",
+  "Emotional Awareness",
+  "Self-motivation",
+  "Willingness to Learn",
+];
 
-beforeEach(() => { window.location.hash = ""; });
-afterEach(() => { vi.restoreAllMocks(); });
+const WHAT_I_DO = [
+  { title: "Mobile Apps", desc: "Professional development of mobile-friendly interfaces." },
+  { title: "Web Development", desc: "Building performant, accessible frontend experiences." },
+  { title: "UI/UX Design", desc: "Designing clear, user-centered interfaces." },
+  { title: "Backend Integration", desc: "Integrating APIs and lightweight persistence." },
+];
 
-describe("App — home render", () => {
-  it("renders Nav", () => { render(<App />); expect(screen.getByTestId("nav")).toBeInTheDocument(); });
-  it("renders hero section", () => { render(<App />); expect(screen.getByTestId("hero-section")).toBeInTheDocument(); });
-  it("renders about section", () => { render(<App />); expect(screen.getByTestId("about-section")).toBeInTheDocument(); });
-  it("renders Skills", () => { render(<App />); expect(screen.getByTestId("skills-section")).toBeInTheDocument(); });
-  it("does NOT render Projects page", () => { render(<App />); expect(screen.queryByTestId("projects-page")).not.toBeInTheDocument(); });
-  it("renders footer with current year", () => {
-    render(<App />);
-    expect(screen.getByText(new RegExp(new Date().getFullYear().toString()))).toBeInTheDocument();
-  });
-});
+export default function App() {
+  const [route, setRoute] = useState<Route>("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cvOpen, setCvOpen] = useState(false);
 
-describe("App — hash routing", () => {
-  it("renders Projects page on #projects", async () => {
-    window.location.hash = "#projects";
-    render(<App />);
-    await act(async () => { fireEvent(window, new HashChangeEvent("hashchange")); });
-    expect(screen.getByTestId("projects-page")).toBeInTheDocument();
-  });
-  it("renders Contact page on #contact", async () => {
-    window.location.hash = "#contact";
-    render(<App />);
-    await act(async () => { fireEvent(window, new HashChangeEvent("hashchange")); });
-    expect(screen.getByTestId("contact-page")).toBeInTheDocument();
-  });
-  it("renders Admin page on #admin", async () => {
-    window.location.hash = "#admin";
-    render(<App />);
-    await act(async () => { fireEvent(window, new HashChangeEvent("hashchange")); });
-    expect(screen.getByTestId("admin-page")).toBeInTheDocument();
-  });
-});
+  const handleHash = useCallback(() => {
+    const h = location.hash.replace("#", "");
+    const newRoute = getRouteFromHash(location.hash);
+    setRoute(newRoute);
+    if (newRoute !== "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(h || "home");
+        el?.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+  }, []);
 
-describe("App — mobile menu", () => {
-  it("toggle button is in the DOM", () => { render(<App />); expect(screen.getByTestId("mobile-menu-toggle")).toBeInTheDocument(); });
-  it("drawer is hidden by default", () => { render(<App />); expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument(); });
-  it("clicking toggle opens drawer", () => {
-    render(<App />);
-    fireEvent.click(screen.getByTestId("mobile-menu-toggle"));
-    expect(screen.getByTestId("mobile-nav")).toBeInTheDocument();
-  });
-  it("clicking toggle twice closes drawer", () => {
-    render(<App />);
-    const btn = screen.getByTestId("mobile-menu-toggle");
-    fireEvent.click(btn); fireEvent.click(btn);
-    expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument();
-  });
-  it("aria-expanded is false when closed", () => {
-    render(<App />);
-    expect(screen.getByTestId("mobile-menu-toggle")).toHaveAttribute("aria-expanded", "false");
-  });
-  it("aria-expanded is true when open", () => {
-    render(<App />);
-    fireEvent.click(screen.getByTestId("mobile-menu-toggle"));
-    expect(screen.getByTestId("mobile-menu-toggle")).toHaveAttribute("aria-expanded", "true");
-  });
-  it("clicking a nav link closes the drawer", () => {
-    render(<App />);
-    fireEvent.click(screen.getByTestId("mobile-menu-toggle"));
-    const link = screen.getByTestId("mobile-nav").querySelector('a[href="#home"]');
-    fireEvent.click(link!);
-    expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument();
-  });
-});
+  useEffect(() => {
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, [handleHash]);
 
-describe("App — accessibility", () => {
-  it("toggle has aria-label", () => { render(<App />); expect(screen.getByTestId("mobile-menu-toggle")).toHaveAttribute("aria-label"); });
-  it("has an h1", () => { render(<App />); expect(document.querySelector("h1")).toBeInTheDocument(); });
-  it("has a footer", () => { render(<App />); expect(document.querySelector("footer")).toBeInTheDocument(); });
-  it("CV link has correct href", () => { render(<App />); expect(screen.getByText(/Download CV/i)).toHaveAttribute("href", "usu-Resume-.pdf"); });
-  it("avatar image has alt text", () => { render(<App />); expect(screen.getByAltText(/Murphy avatar/i)).toBeInTheDocument(); });
-});
+  useEffect(() => {
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+    function handleMove(e: MouseEvent) {
+      for (let i = 0; i < 3; i++) {
+        const el = document.createElement("div");
+        el.className = "cursor-smoke-neon";
+        const size = 4 + Math.random() * 8;
+        el.style.cssText = `
+          position: fixed; pointer-events: none; border-radius: 50%;
+          width: ${size}px; height: ${size}px;
+          left: ${e.clientX + Math.random() * 12 - 6}px;
+          top: ${e.clientY + Math.random() * 12 - 6}px;
+          background: radial-gradient(circle, hsl(${Math.random() * 360}, 100%, 70%), transparent);
+          z-index: 9999;
+        `;
+        document.body.appendChild(el);
+        el.animate(
+          [
+            { transform: "translateY(0) scale(1)", opacity: 1 },
+            { transform: "translateY(-60px) scale(0.2)", opacity: 0 },
+          ],
+          { duration: 1200, easing: "ease-out" },
+        );
+        setTimeout(() => el.remove(), 1200);
+      }
+    }
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
+  return (
+    <section>
+      <div className="min-h-screen flex flex-col relative overflow-hidden bg-gray-900 text-white">
+        <Nav />
+
+        <button
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          className="md:hidden absolute top-3 right-4 z-50 p-2 rounded-md bg-gray-800 border border-gray-700 text-white"
+          onClick={() => setMenuOpen((o) => !o)}
+          data-testid="mobile-menu-toggle"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
+        {menuOpen && (
+          <nav
+            data-testid="mobile-nav"
+            className="md:hidden fixed inset-0 z-40 bg-gray-900/95 backdrop-blur flex flex-col items-center justify-center gap-8 text-xl"
+          >
+            {(["home", "projects", "contact"] as const).map((r) => (
+              
+                key={r}
+                href={"#" + r}
+                className="capitalize text-gray-200 hover:text-yellow-400 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                {r}
+              </a>
+            ))}
+          </nav>
+        )}
+
+        <main className="container mx-auto px-4 sm:px-6 p-6 flex-1 relative z-10">
+          {route === "home" && (
+            <div className="space-y-10 sm:space-y-12">
+              <section
+                id="home"
+                data-testid="hero-section"
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-4 sm:pt-0"
+              >
+                <div>
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 flex flex-wrap items-baseline gap-2 sm:gap-3">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 opacity-90">
+                      Frontend Developer
+                    </span>
+                  </h1>
+                  <p className="text-gray-300 mb-6 max-w-xl text-sm sm:text-base leading-relaxed">
+                    <Typing text="Modern web developer with a frontend foundation — crafting clean, responsive UIs while building out backend systems with Node.js and database integration. Passionate about the full picture: from polished user interfaces to the APIs and logic powering them behind the scenes. Certified in AI automation, with hands-on experience designing intelligent workflows and integrating automation into real-world web projects." />
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    
+                      href="#projects"
+                      className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
+                    >
+                      View Projects
+                    </a>
+                    
+                      href="#contact"
+                      className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
+                    >
+                      Contact
+                    </a>
+                    <button
+                      onClick={() => setCvOpen(true)}
+                      className="px-4 py-2 border border-yellow-400 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black transition-colors duration-300 text-sm sm:text-base"
+                    >
+                      Checkout CV
+                    </button>
+                  </div>
+                </div>
+                <div className="flex justify-center md:justify-end mt-6 md:mt-0">
+                  <div className="avatar-ring w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-pink-400 to-yellow-400 p-1">
+                    <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-white font-bold avatar-core text-xl sm:text-2xl">
+                      MP
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="about" data-testid="about-section" className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                  <aside className="md:col-span-1">
+                    <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-2xl p-5 sm:p-6 shadow-lg glow-section">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full avatar-ring p-1 bg-gradient-to-br from-pink-400 to-yellow-400 mb-4">
+                          <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center avatar-core overflow-hidden">
+                            <img src="/murph.png" alt="Murphy avatar" className="w-full h-full object-cover rounded-full" />
+                          </div>
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-semibold">Murphy Portfolio</h3>
+                        <div className="text-xs sm:text-sm text-yellow-300 mt-1">
+                          <strong>Web Designer</strong>
+                        </div>
+                      </div>
+                      <div className="mt-5 space-y-3">
+                        {[
+                          { label: "EMAIL", value: "smithcelestine430@gmail.com" },
+                          { label: "INSTAGRAM", value: "@i_am_dj_murphy" },
+                          { label: "LOCATION", value: "Germany" },
+                        ].map(({ label, value }) => (
+                          <div key={label} className="p-3 bg-[rgba(255,255,255,0.02)] rounded-md">
+                            <div className="text-xs text-gray-400">{label}</div>
+                            <div className="text-xs sm:text-sm text-gray-200 break-all">{value}</div>
+                          </div>
+                        ))}
+                        <div className="mt-4 flex items-center justify-center gap-4 text-gray-300 flex-wrap">
+                          <a href="https://github.com/odionmurphy" className="hover:text-yellow-400 text-sm transition-colors">GitHub</a>
+                          <a href="https://www.linkedin.com/in/murphy-usunobun-5a159a226/" className="hover:text-yellow-400 text-sm transition-colors">LinkedIn</a>
+                          <a href="#contact" className="hover:text-yellow-400 text-sm transition-colors">Email</a>
+                        </div>
+                      </div>
+                    </div>
+                  </aside>
+
+                  <div className="md:col-span-2">
+                    <div className="p-5 sm:p-6 bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.03)] rounded-2xl glow-section">
+                      <h2 className="text-xl sm:text-2xl font-semibold mb-3 bg-gradient-to-r from-yellow-400 to-pink-400 text-transparent bg-clip-text">
+                        About Me
+                      </h2>
+                      <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
+                        I build web applications that are visually polished and high-performing from responsive frontends to the backend
+                        systems behind them. Creating something from scratch and launching it for people to use is what drew me to
+                        development, and that motivation still drives me. I focus on how things work, not just how they look — clean code,
+                        solid architecture, and thoughtful technical decisions. This has led me toward full-stack development and AI
+                        automation, where I am certified and building intelligent workflows using LLMs. I am looking to join a team where I
+                        can ship meaningful work, keep learning, and grow fast.
+                      </p>
+                      <h3 className="text-lg sm:text-xl font-semibold mb-4">What I'm Doing</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
+                        {WHAT_I_DO.map(({ title, desc }) => (
+                          <div key={title} className="p-3 sm:p-4 bg-[rgba(255,255,255,0.01)] rounded-lg">
+                            <div className="font-semibold text-gray-100 text-sm sm:text-base">{title}</div>
+                            <div className="text-xs sm:text-sm text-gray-300 mt-1">{desc}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-semibold mb-4">Soft Skills</h3>
+                      <div className="skill-marquee relative overflow-hidden w-full" aria-label="Soft skills carousel">
+                        <div className="skill-track flex gap-4 sm:gap-6">
+                          {[...SOFT_SKILLS, ...SOFT_SKILLS].map((s, i) => (
+                            <div key={i} className="flex flex-col items-center justify-center gap-1 sm:gap-2 w-20 sm:w-24 h-20 sm:h-24 skill-card flex-shrink-0">
+                              <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-white text-sm">
+                                {s[0]}
+                              </div>
+                              <div className="text-[10px] sm:text-xs text-gray-300 text-center leading-tight">{s}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="skills" className="glow-section">
+                <Skills />
+              </section>
+            </div>
+          )}
+
+          {route === "projects" && <Projects />}
+          {route === "contact" && <Contact />}
+          {route === "admin" && <AdminContacts />}
+        </main>
+
+        <footer className="site-footer text-center p-4 sm:p-6 text-xs sm:text-sm">
+          <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div>© {new Date().getFullYear()} Murphy — Built with React & Postgress</div>
+            <div className="flex gap-4">
+              <a href="#projects" className="text-green-400 hover:underline">Projects</a>
+              <a href="#contact" className="text-gray-300 hover:underline">Contact</a>
+            </div>
+          </div>
+        </footer>
+
+        {cvOpen && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            onClick={() => setCvOpen(false)}
+          >
+            <div
+              className="relative w-full max-w-4xl h-[90vh] mx-4 rounded-xl overflow-hidden shadow-2xl border border-gray-700"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
+                <span className="text-sm text-gray-300 font-medium">Murphy — CV</span>
+                <button
+                  onClick={() => setCvOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors text-xl leading-none"
+                  aria-label="Close CV viewer"
+                >
+                  ✕
+                </button>
+              </div>
+              <iframe
+                src="/Murphy_CV_INTERSHINP.pdf#toolbar=0&navpanes=0&scrollbar=1"
+                className="w-full bg-white"
+                style={{ height: "calc(100% - 40px)" }}
+                title="Murphy CV"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+ENDOFFILE

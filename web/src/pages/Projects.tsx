@@ -1,8 +1,5 @@
-
-
 import React, { useEffect, useState } from "react";
 import "./Projects.css";
-
 
 type Project = {
   id?: number;
@@ -28,23 +25,34 @@ export default function Projects() {
   useEffect(() => {
     const sampleProjects: Project[] = [
       {
+        id: 0,
+        title: "JOM - Job Opportunity Marketplace",
+        description:
+          "Final group project built collaboratively as part of our development training. JOM is a modern job opportunity platform that connects job seekers with employers through an intuitive and responsive user experience.",
+        link: "https://jom-gamma.vercel.app/",
+        image: "jom.png",
+        tags: ["React", "TypeScript", "Node.js", "Team Project"],
+        year: 2026,
+        status: "Final Group Project",
+      },
+
+      {
         id: 1,
         title: "My Portfolio  ",
         description:
           "A modern, responsive portfolio website built with React and Vite, designed to showcase projects with clarity, performance, and scalability.",
-        link: "#",
-        image:
-          "murphy.png",
+          link: "https://murphy1.onrender.com/",
+        image: "murphy.png",
         tags: ["React", "Vite", "Responsive"],
         year: 2026,
       },
       {
         id: 2,
         title: "Documents Gallery",
-        description: "Personal portfolio with case studies and smooth animations     .",
-        link: "#",
-        image:
-          "odi.png",
+        description:
+          "Personal portfolio with case studies and smooth animations     .",
+        link: "https://murphy1.onrender.com/",
+        image: "odi.png",
         tags: ["HTML", "CSS", "Animations"],
         year: 2025,
       },
@@ -54,8 +62,7 @@ export default function Projects() {
         description:
           "A minimalist, responsive A built with React and Vite, focused on presenting projects in a clear and engaging way. The design prioritizes speed, adaptability, and a polished user interface across all screen sizes..",
         link: "#",
-        image:
-          "bird.png",
+        image: "bird.png",
         tags: ["React", "TypeScript", "Accessibility"],
         year: 2025,
       },
@@ -65,8 +72,7 @@ export default function Projects() {
         description:
           "Admin dashboard for bookings, analytics and user management.",
         link: "#",
-        image:
-          "cars.png",
+        image: "cars.png",
         tags: ["Dashboard", "Charts", "Node"],
         year: 2024,
       },
@@ -74,9 +80,8 @@ export default function Projects() {
         id: 5,
         title: " E‑commerce Demo",
         description: "Marketing site with animations and download CTAs.",
-        link: "#",
-        image:
-          "shop.png",
+        link: "https://shophud-frontend.onrender.com/",
+        image: "shop.png",
         tags: ["Marketing", "SEO", "Performance"],
         year: 2022,
       },
@@ -85,11 +90,30 @@ export default function Projects() {
         title: "Weather App Landing",
         description: "Sample shop with product filters and cart flow.",
         link: "#",
-        image:
-          "weader.png",
+        image: "weader.png",
         tags: ["Shop", "Payments", "UX"],
         year: 2025,
       },
+      
+      {
+  id: 8,
+  title: "SoundSnap Music Recognition",
+  description:
+    "A React Native mobile application that identifies music playing around the user in real time. Built with Expo and connected to a Railway-hosted backend API. Displays song information including artist, album, release date, genre, popularity score, and provides direct links to Spotify and Apple Music.",
+  
+  image: `soundsnap-details.png`,
+  tags: [
+    "React Native",
+    "Expo",
+    "Node.js",
+    "Railway",
+    "Music Recognition",
+    "REST API"
+  ],
+  year: 2026,
+  status: "Live",
+},
+
     ];
 
     fetch("/api/projects")
@@ -122,7 +146,7 @@ export default function Projects() {
   }
 
   return (
-    <div  className="mx-auto py-6 relative">
+    <div className="mx-auto py-6 relative">
       <div className="tech-bg absolute inset-0 -z-10" />
       <div className="color-swirl" aria-hidden />
 
@@ -165,6 +189,7 @@ export default function Projects() {
                 {p.year && <span>{p.year} • </span>}
                 {p.description}
               </div>
+
               {p.tags && (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {p.tags.map((t) => (
@@ -176,6 +201,18 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
+              )}
+
+              {p.link && p.link !== "#" && (
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 transition-colors"
+                >
+                  View Project
+                </a>
               )}
             </div>
           </article>
