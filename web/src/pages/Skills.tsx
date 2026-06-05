@@ -7,7 +7,7 @@ const categories = [
   },
   {
     title: "Tools & Platforms",
-    items: ["Git/GitHub", "VS Code", "Figma", "Vite", "npm"],
+    items: ["Git/GitHub", "VS Code", "Figma", "Trello",  "Vite", "npm"],
   },
   {
     title: "Soft Skills",
@@ -25,9 +25,11 @@ const allSkills = [
   { name: "Node.js", icon: "⬢" },
   { name: "Docker", icon: "🐳" },
   { name: "Git", icon: "🔧" },
+  { name: "Trello", icon: "📋" },
   { name: "Figma", icon: "🎨" },
   { name: "Vite", icon: "⚡" },
   { name: "Testing", icon: "✅" },
+
  
   { name: "Accessibility", icon: "♿" },
   { name: "Performance", icon: "🚀" },

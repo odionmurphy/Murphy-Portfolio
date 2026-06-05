@@ -175,7 +175,7 @@ export default function App() {
                     </span>
                   </h1>
                   <p className="text-gray-300 mb-6 max-w-xl text-sm sm:text-base leading-relaxed">
-                    <Typing text=" Modern web developer with a strong frontend foundation — crafting clean, responsive UIs while architecting robust backend systems with Node.js, PHP, and PostgreSQL. I’m passionate about the full engineering lifecycle: from polished user interfaces to the logic and APIs powering them behind the scenes. With a background in AI automation, I specialize in designing intelligent workflows and integrating automated pipelines into real-world web projects to drive efficiency " />
+                    <Typing text="Modern web developer crafting clean, responsive UIs while architecting robust backend systems with Node.js, PHP, and PostgreSQL. I bridge the gap between polished user experiences and the logic, APIs, and AI-driven automation pipelines powering them behind the scenes." />
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <a
