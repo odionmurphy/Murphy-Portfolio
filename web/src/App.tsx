@@ -33,19 +33,10 @@ const SOFT_SKILLS = [
 ];
 
 const WHAT_I_DO = [
-  {
-    title: "Mobile Apps",
-    desc: "Professional development of mobile-friendly interfaces.",
-  },
-  {
-    title: "Web Development",
-    desc: "Building performant, accessible frontend experiences.",
-  },
+  { title: "Mobile Apps", desc: "Professional development of mobile-friendly interfaces." },
+  { title: "Web Development", desc: "Building performant, accessible frontend experiences." },
   { title: "UI/UX Design", desc: "Designing clear, user-centered interfaces." },
-  {
-    title: "Backend Integration",
-    desc: "Integrating APIs and lightweight persistence.",
-  },
+  { title: "Backend Integration", desc: "Integrating APIs and lightweight persistence." },
 ];
 
 export default function App() {
@@ -74,8 +65,7 @@ export default function App() {
   }, [handleHash]);
 
   useEffect(() => {
-    const isTouchDevice =
-      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
     function handleMove(e: MouseEvent) {
       for (let i = 0; i < 3; i++) {
@@ -117,27 +107,11 @@ export default function App() {
           onClick={() => setMenuOpen((o) => !o)}
           data-testid="mobile-menu-toggle"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
@@ -178,103 +152,58 @@ export default function App() {
                     <Typing text="Modern web developer crafting clean, responsive UIs while architecting robust backend systems with Node.js, PHP, and PostgreSQL. I bridge the gap between polished user experiences and the logic, APIs, and AI-driven automation pipelines powering them behind the scenes." />
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    <a
-                      href="#projects"
-                      className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base"
-                    >
+                    <a href="#projects" className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
                       View Projects
                     </a>
-                    <a
-                      href="#contact"
-                      className="inline-block px-4 py-2  hover:border-yellow-400 hover:text-yellow-400 transition-all text-sm sm:text-base       bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 "
-                    >
+                    <a href="#contact" className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
                       Contact
                     </a>
-
-                    <button
-                      onClick={() => setCvOpen(true)}
-                      className="inline-block px-4 py-2 border border-yellow-400 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black transition-colors duration-300 text-sm sm:text-base"
-                    >
+                    <button onClick={() => setCvOpen(true)} className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 text-black rounded-md shadow-lg hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
                       Checkout CV
                     </button>
                   </div>
                 </div>
                 <div className="flex justify-center md:justify-end mt-6 md:mt-0">
-                  <div className="flex justify-center md:justify-end mt-6 md:mt-0">
-                    <div className="avatar-ring w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-pink-400 to-yellow-400 p-1">
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-teal-400 to-cyan-400 flex items-center justify-center font-bold avatar-core text-xl sm:text-2xl">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mp-shatter">
-                          MP
-                        </span>
-                      </div>
+                  <div className="avatar-ring w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-pink-400 to-yellow-400 p-1">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-teal-400 to-cyan-400 flex items-center justify-center font-bold avatar-core text-xl sm:text-2xl">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mp-shatter">
+                        MP
+                      </span>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <section
-                id="about"
-                data-testid="about-section"
-                className="max-w-6xl mx-auto"
-              >
+              <section id="about" data-testid="about-section" className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                   <aside className="md:col-span-1">
                     <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-2xl p-5 sm:p-6 shadow-lg glow-section">
                       <div className="flex flex-col items-center text-center">
                         <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full avatar-ring p-1 bg-gradient-to-br from-pink-400 to-yellow-400 mb-4">
                           <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center avatar-core overflow-hidden">
-                            <img
-                              src="/murph.png"
-                              alt="Murphy avatar"
-                              className="w-full h-full object-cover rounded-full"
-                            />
+                            <img src="/murph.png" alt="Murphy avatar" className="w-full h-full object-cover rounded-full" />
                           </div>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-semibold">
-                          Murphy Portfolio
-                        </h3>
+                        <h3 className="text-lg sm:text-xl font-semibold">Murphy Portfolio</h3>
                         <div className="text-xs sm:text-sm text-yellow-300 mt-1">
-                          <strong>Web Designer</strong>
+                          <strong>Web Developer</strong>
                         </div>
                       </div>
                       <div className="mt-5 space-y-3">
                         {[
-                          {
-                            label: "EMAIL",
-                            value: "smithcelestine430@gmail.com",
-                          },
-                          { label: "INSTAGRAM", value: "@i_am_dj_murphy" },
+                          { label: "EMAIL", value: "smithcelestine430@gmail.com" },
+                          { label: "LINKEDIN", value: "Murphy (Odion) Usunobun" },
                           { label: "LOCATION", value: "Germany" },
                         ].map(({ label, value }) => (
-                          <div
-                            key={label}
-                            className="p-3 bg-[rgba(255,255,255,0.02)] rounded-md"
-                          >
+                          <div key={label} className="p-3 bg-[rgba(255,255,255,0.02)] rounded-md">
                             <div className="text-xs text-gray-400">{label}</div>
-                            <div className="text-xs sm:text-sm text-gray-200 break-all">
-                              {value}
-                            </div>
+                            <div className="text-xs sm:text-sm text-gray-200 break-all">{value}</div>
                           </div>
                         ))}
                         <div className="mt-4 flex items-center justify-center gap-4 text-gray-300 flex-wrap">
-                          <a
-                            href="https://github.com/odionmurphy"
-                            className="hover:text-yellow-400 text-sm transition-colors"
-                          >
-                            GitHub
-                          </a>
-                          <a
-                            href="https://www.linkedin.com/in/murphy-usunobun-5a159a226/"
-                            className="hover:text-yellow-400 text-sm transition-colors"
-                          >
-                            LinkedIn
-                          </a>
-                          <a
-                            href="#contact"
-                            className="hover:text-yellow-400 text-sm transition-colors"
-                          >
-                            Email
-                          </a>
+                          <a href="https://github.com/odionmurphy" className="hover:text-yellow-400 text-sm transition-colors">GitHub</a>
+                          <a href="https://www.linkedin.com/in/murphy-usunobun-5a159a226/" className="hover:text-yellow-400 text-sm transition-colors">LinkedIn</a>
+                          <a href="#contact" className="hover:text-yellow-400 text-sm transition-colors">Email</a>
                         </div>
                       </div>
                     </div>
@@ -286,59 +215,36 @@ export default function App() {
                         About Me
                       </h2>
                       <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
-                        I build web applications that are visually polished and
-                        high-performing, from responsive frontends to the
-                        backend systems behind them. Creating digital solutions
-                        from scratch and launching them into production is what
-                        drew me to development, and that drive only grew
-                        stronger during my intensive Full-Stack training and
-                        recent developer internship. I focus on how software
-                        works, not just how it looks — prioritizing clean code,
-                        solid architecture, and automation. This hands-on
-                        mindset drives my work in full-stack development and AI
-                        automation, where I build intelligent workflows,
-                        integrate LLMs, and optimize business pipelines. I'm
-                        ready to join a collaborative team where I can ship
-                        meaningful code, tackle complex technical challenges,
-                        and add immediate value.
+                        I build web applications that are visually polished and high-performing,
+                        from responsive frontends to the backend systems behind them. Creating
+                        digital solutions from scratch and launching them into production is what
+                        drew me to development, and that drive only grew stronger during my
+                        intensive Full-Stack training and recent developer internship. I focus on
+                        how software works, not just how it looks — prioritizing clean code, solid
+                        architecture, and automation. This hands-on mindset drives my work in
+                        full-stack development and AI automation, where I build intelligent
+                        workflows, integrate LLMs, and optimize business pipelines. I am ready to
+                        join a collaborative team where I can ship meaningful code, tackle complex
+                        technical challenges, and add immediate value.
                       </p>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                        What I'm Doing
-                      </h3>
+                      <h3 className="text-lg sm:text-xl font-semibold mb-4">What I'm Doing</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
                         {WHAT_I_DO.map(({ title, desc }) => (
-                          <div
-                            key={title}
-                            className="p-3 sm:p-4 bg-[rgba(255,255,255,0.01)] rounded-lg"
-                          >
-                            <div className="font-semibold text-gray-100 text-sm sm:text-base">
-                              {title}
-                            </div>
-                            <div className="text-xs sm:text-sm text-gray-300 mt-1">
-                              {desc}
-                            </div>
+                          <div key={title} className="p-3 sm:p-4 bg-[rgba(255,255,255,0.01)] rounded-lg">
+                            <div className="font-semibold text-gray-100 text-sm sm:text-base">{title}</div>
+                            <div className="text-xs sm:text-sm text-gray-300 mt-1">{desc}</div>
                           </div>
                         ))}
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                        Soft Skills
-                      </h3>
-                      <div
-                        className="skill-marquee relative overflow-hidden w-full"
-                        aria-label="Soft skills carousel"
-                      >
+                      <h3 className="text-lg sm:text-xl font-semibold mb-4">Soft Skills</h3>
+                      <div className="skill-marquee relative overflow-hidden w-full" aria-label="Soft skills carousel">
                         <div className="skill-track flex gap-4 sm:gap-6">
                           {[...SOFT_SKILLS, ...SOFT_SKILLS].map((s, i) => (
-                            <div
-                              key={i}
-                              className="flex flex-col items-center justify-center gap-1 sm:gap-2 w-20 sm:w-24 h-20 sm:h-24 skill-card flex-shrink-0"
-                            >
+                            <div key={i} className="flex flex-col items-center justify-center gap-1 sm:gap-2 w-20 sm:w-24 h-20 sm:h-24 skill-card flex-shrink-0">
                               <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-white text-sm">
                                 {s[0]}
                               </div>
-                              <div className="text-[10px] sm:text-xs text-gray-300 text-center leading-tight">
-                                {s}
-                              </div>
+                              <div className="text-[10px] sm:text-xs text-gray-300 text-center leading-tight">{s}</div>
                             </div>
                           ))}
                         </div>
@@ -361,16 +267,10 @@ export default function App() {
 
         <footer className="site-footer text-center p-4 sm:p-6 text-xs sm:text-sm">
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div>
-              © {new Date().getFullYear()} Murphy — Built with React & Postgress
-            </div>
+            <div>© {new Date().getFullYear()} Murphy — Built with React & Postgress</div>
             <div className="flex gap-4">
-              <a href="#projects" className="text-green-400 hover:underline">
-                Projects
-              </a>
-              <a href="#contact" className="text-gray-300 hover:underline">
-                Contact
-              </a>
+              <a href="#projects" className="text-green-400 hover:underline">Projects</a>
+              <a href="#contact" className="text-gray-300 hover:underline">Contact</a>
             </div>
           </div>
         </footer>
@@ -385,18 +285,11 @@ export default function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
-                <span className="text-sm text-gray-300 font-medium">
-                  Murphy CV
-                </span>
-
-                <button
-                  onClick={() => setCvOpen(false)}
-                  className="text-gray-400 hover:text-white text-xl"
-                >
+                <span className="text-sm text-gray-300 font-medium">Murphy CV</span>
+                <button onClick={() => setCvOpen(false)} className="text-gray-400 hover:text-white text-xl">
                   ✕
                 </button>
               </div>
-
               <iframe
                 src="/Murphy_CV_INTERSHINP.pdf#toolbar=0&navpanes=0&scrollbar=1"
                 title="Murphy CV"
