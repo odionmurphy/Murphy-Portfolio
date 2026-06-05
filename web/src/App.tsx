@@ -53,8 +53,6 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cvOpen, setCvOpen] = useState(false);
 
-
-
   const handleHash = useCallback(() => {
     const h = location.hash.replace("#", "");
     const newRoute = getRouteFromHash(location.hash);
@@ -173,11 +171,11 @@ export default function App() {
                 <div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 flex flex-wrap items-baseline gap-2 sm:gap-3">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 opacity-90">
-                      Frontend Developer
+                      Frontend-Focused FullStack Developer
                     </span>
                   </h1>
                   <p className="text-gray-300 mb-6 max-w-xl text-sm sm:text-base leading-relaxed">
-                    <Typing text=" Modern web developer with a frontend foundation — crafting clean, responsive UIs while building out backend systems with Node.js and database integration. Passionate about the full picture: from polished user interfaces to the APIs and logic powering them behind the scenes. Certified in AI automation, with hands-on experience designing intelligent workflows and integrating automation into real-world web projects.." />
+                    <Typing text=" Modern web developer with a strong frontend foundation — crafting clean, responsive UIs while architecting robust backend systems with Node.js, PHP, and PostgreSQL. I’m passionate about the full engineering lifecycle: from polished user interfaces to the logic and APIs powering them behind the scenes. With a background in AI automation, I specialize in designing intelligent workflows and integrating automated pipelines into real-world web projects to drive efficiency " />
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <a
@@ -202,9 +200,13 @@ export default function App() {
                   </div>
                 </div>
                 <div className="flex justify-center md:justify-end mt-6 md:mt-0">
-                  <div className="avatar-ring w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-pink-400 to-yellow-400 p-1">
-                    <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-white font-bold avatar-core text-xl sm:text-2xl">
-                      MP
+                  <div className="flex justify-center md:justify-end mt-6 md:mt-0">
+                    <div className="avatar-ring w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-pink-400 to-yellow-400 p-1">
+                      <div className="w-full h-full rounded-full bg-gradient-to-br from-teal-400 to-cyan-400 flex items-center justify-center font-bold avatar-core text-xl sm:text-2xl">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mp-shatter">
+                          MP
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -285,17 +287,20 @@ export default function App() {
                       </h2>
                       <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
                         I build web applications that are visually polished and
-                        high-performing from responsive frontends to the backend
-                        systems behind them. Creating something from scratch and
-                        launching it for people to use is what drew me to
-                        development, and that motivation still drives me. I
-                        focus on how things work, not just how they look — clean
-                        code, solid architecture, and thoughtful technical
-                        decisions. This has led me toward full-stack development
-                        and AI automation, where I’m certified and building
-                        intelligent workflows using LLMs. I'm looking to join a
-                        team where I can ship meaningful work, keep learning,
-                        and grow fast.
+                        high-performing, from responsive frontends to the
+                        backend systems behind them. Creating digital solutions
+                        from scratch and launching them into production is what
+                        drew me to development, and that drive only grew
+                        stronger during my intensive Full-Stack training and
+                        recent developer internship. I focus on how software
+                        works, not just how it looks — prioritizing clean code,
+                        solid architecture, and automation. This hands-on
+                        mindset drives my work in full-stack development and AI
+                        automation, where I build intelligent workflows,
+                        integrate LLMs, and optimize business pipelines. I'm
+                        ready to join a collaborative team where I can ship
+                        meaningful code, tackle complex technical challenges,
+                        and add immediate value.
                       </p>
                       <h3 className="text-lg sm:text-xl font-semibold mb-4">
                         What I'm Doing
@@ -371,36 +376,35 @@ export default function App() {
         </footer>
 
         {cvOpen && (
-  <div
-    className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
-    onClick={() => setCvOpen(false)}
-  >
-    <div
-      className="relative w-full max-w-4xl h-[90vh] mx-4 rounded-xl overflow-hidden shadow-2xl border border-gray-700 bg-white"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
-        <span className="text-sm text-gray-300 font-medium">
-          Murphy CV
-        </span>
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            onClick={() => setCvOpen(false)}
+          >
+            <div
+              className="relative w-full max-w-4xl h-[90vh] mx-4 rounded-xl overflow-hidden shadow-2xl border border-gray-700 bg-white"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
+                <span className="text-sm text-gray-300 font-medium">
+                  Murphy CV
+                </span>
 
-        <button
-          onClick={() => setCvOpen(false)}
-          className="text-gray-400 hover:text-white text-xl"
-        >
-          ✕
-        </button>
-      </div>
+                <button
+                  onClick={() => setCvOpen(false)}
+                  className="text-gray-400 hover:text-white text-xl"
+                >
+                  ✕
+                </button>
+              </div>
 
-      <iframe
-        src="/Murphy_CV_INTERSHINP.pdf#toolbar=0&navpanes=0&scrollbar=1"
-        title="Murphy CV"
-        className="w-full h-full"
-      />
-    </div>
-  </div>
-)}
-
+              <iframe
+                src="/Murphy_CV_INTERSHINP.pdf#toolbar=0&navpanes=0&scrollbar=1"
+                title="Murphy CV"
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

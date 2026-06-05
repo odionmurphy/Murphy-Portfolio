@@ -240,11 +240,17 @@ body::after {
   }
 }
 
-/* Mobile & touch devices → NO hover effects */
-@media (hover: none), (pointer: coarse) {
-  .glow-section,
-  .glow-section::after {
-    box-shadow: none !important;
-    transform: none !important;
-  }
+
+
+
+
+@keyframes mpZoom {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(3); }
+  100% { transform: scale(1); }
+}
+
+.mp-shatter {
+  animation: mpZoom 60s ease-in-out infinite;
+  display: inline-block;
 }
