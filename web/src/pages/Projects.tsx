@@ -50,8 +50,8 @@ export default function Projects() {
         id: 2,
         title: "Documents Gallery",
         description:
-          "Personal portfolio with case studies and smooth animations     .",
-        link: "https://murphy1.onrender.com/",
+          "A digital shop built for browsing and purchasing documents online, featuring a clean UI and smooth user experience.   .",
+        link: "https://portfolio-eta-rust-5g0s1ohty3.vercel.app/",
         image: "odi.png",
         tags: ["HTML", "CSS", "Animations"],
         year: 2025,
