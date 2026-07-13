@@ -322,13 +322,36 @@ export default function App() {
           {route === "contact" && <Contact />}
         </main>
 
-        <footer className="site-footer text-center p-4 sm:p-6 text-xs sm:text-sm">
-          <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div>© {new Date().getFullYear()} Murphy Odion Usunobun — Built with React & TypeScript</div>
-            <div className="flex gap-4">
-              <a href="#projects" className="text-green-400 hover:underline">Projects</a>
-              <a href="#contact" className="text-gray-300 hover:underline">Contact</a>
+        <footer className="site-footer pt-10 sm:pt-12 pb-6 px-4 sm:px-6 text-sm">
+          <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8 pb-8 border-b border-white/10">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-black text-xs">
+                  MP
+                </div>
+                <span className="font-semibold text-gray-100">Murphy Portfolio</span>
+              </div>
+              <p className="text-gray-400 text-xs leading-relaxed max-w-xs">
+                Frontend-focused full-stack developer building clean, efficient web apps and AI-powered automation pipelines.
+              </p>
             </div>
+
+            <div>
+              <h4 className="text-gray-100 font-semibold mb-3">Get In Touch</h4>
+              <ul className="space-y-2 text-gray-400 text-xs sm:text-sm">
+                <li><a href="mailto:djmurphy041@gmail.com" className="hover:text-blue-400 transition-colors">djmurphy041@gmail.com</a></li>
+                <li>Menden (Sauerland), Germany</li>
+                <li className="flex gap-4 pt-1">
+                  <a href="https://github.com/odionmurphy" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">GitHub</a>
+                  <a href="https://linkedin.com/in/odionmurphy" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">LinkedIn</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 pt-6 text-xs text-gray-500">
+            <div>© {new Date().getFullYear()} Murphy Odion Usunobun. All rights reserved.</div>
+            <div>Built with React & TypeScript</div>
           </div>
         </footer>
 
