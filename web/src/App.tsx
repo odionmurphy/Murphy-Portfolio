@@ -47,7 +47,7 @@ const EXPERIENCE = [
     location: "Bremen, Germany",
     period: "03/2026 – 05/2026",
     points: [
-      "Rebuilt and optimized client production websites using React and Next.js to improve performance and UI/UX",
+      "Contributed to a team effort rebuilding and optimizing client production websites using React and Next.js to improve performance and UI/UX",
       "Designed and deployed automated business pipelines utilizing n8n, Zapier, and Make.com to reduce manual administration",
       "Collaborated closely with the design and development teams to translate wireframes into high-quality, responsive code",
     ],

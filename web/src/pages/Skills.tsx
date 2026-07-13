@@ -11,7 +11,7 @@ const categories = [
   },
   {
     title: "Tools, DevOps & Automation",
-    items: ["Git/GitHub", "Docker", "CI/CD fundamentals", "n8n", "Zapier", "Make.com", "Airtable"],
+    items: ["Git/GitHub", "Docker", "CI/CD fundamentals", "n8n", "Zapier", "Make.com", "Airtable", "Figma", "ElevenLabs"],
   },
 ];
 
@@ -36,6 +36,8 @@ const allSkills = [
   { name: "Zapier", icon: "⚡" },
   { name: "Make.com", icon: "🔗" },
   { name: "Airtable", icon: "📋" },
+  { name: "Figma", icon: "🎨" },
+  { name: "ElevenLabs", icon: "🎙️" },
 ];
 
 export default function Skills() {
