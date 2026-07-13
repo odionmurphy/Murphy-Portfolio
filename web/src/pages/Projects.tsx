@@ -1,59 +1,85 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Projects.css";
 
 type Project = {
-  id?: number;
+  id: number;
   title: string;
   description: string;
   link?: string;
   image?: string;
-  tags?: string[];
-  year?: number | string;
+  tags: string[];
+  year: number | string;
   status?: string;
 };
 
+const projects: Project[] = [
+  {
+    id: 0,
+    title: "JOM — Mechanic Workshop App",
+    description:
+      "Co-built a full-stack automobile workshop management app with a three-person team: user authentication, booking system, mechanic profiles, car brand listings, admin dashboard, and contact form.",
+    link: "https://jom-gamma.vercel.app/",
+    image: "jom.png",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "REST API", "Team Project"],
+    year: 2026,
+    status: "Live",
+  },
+  {
+    id: 1,
+    title: "SoundSnap — Music Recognition",
+    description:
+      "A React Native mobile application that identifies music playing around the user in real time.",
+    image: "soundsnap-home.png",
+    tags: ["React Native", "Expo", "Node.js", "Railway", "REST API"],
+    year: 2026,
+    status: "Live",
+  },
+  {
+    id: 2,
+    title: "ShopHUD — E-Commerce Web Application",
+    description:
+      "A responsive e-commerce frontend with reusable UI components and product pages, integrating REST APIs to retrieve product data across desktop and mobile layouts.",
+    link: "https://shophud-frontend.onrender.com/",
+    image: "shop.png",
+    tags: ["React", "TypeScript", "REST API", "Responsive Design"],
+    year: 2025,
+  },
+  {
+    id: 3,
+    title: "Business Workflow Automation Tool",
+    description:
+      "Designed and deployed automated business workflows using n8n, with AI-powered pipelines to reduce manual data processing and third-party API integrations across multi-step business processes.",
+    tags: ["n8n", "Workflow Automation", "AI Automation", "REST API"],
+    year: 2025,
+  },
+  {
+    id: 4,
+    title: "Developer Portfolio Website",
+    description:
+      "A personal developer portfolio showcasing projects with responsive design and modern UI components, deployed on cloud hosting.",
+    link: "https://murphy1.onrender.com/",
+    image: "murphy.png",
+    tags: ["React", "Vite", "TypeScript", "Responsive Design"],
+    year: 2026,
+  },
+];
+
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
   const [modal, setModal] = useState<string | null>(null);
-
-  useEffect(() => {
-    const sampleProjects: Project[] = [
-      { id: 0, title: "JOM - Job Opportunity Marketplace", description: "Final group project built collaboratively as part of our development training.", link: "https://jom-gamma.vercel.app/", image: "jom.png", tags: ["React", "TypeScript", "Node.js", "Team Project"], year: 2026, status: "Final Group Project" },
-      { id: 1, title: "My Portfolio", description: "A modern, responsive portfolio website built with React and Vite.", link: "https://murphy1.onrender.com/", image: "murphy.png", tags: ["React", "Vite", "Responsive"], year: 2026 },
-      { id: 2, title: "Documents Gallery", description: "A digital shop built for browsing and purchasing documents online.", link: "https://portfolio-eta-rust-5g0s1ohty3.vercel.app/", image: "odi.png", tags: ["HTML", "CSS", "Animations"], year: 2025 },
-      { id: 3, title: "DW-25 UI", description: "A minimalist, responsive UI built with React and Vite.", link: "#", image: "bird.png", tags: ["React", "TypeScript", "Accessibility"], year: 2025 },
-      { id: 4, title: "Booking Dashboard", description: "Admin dashboard for bookings, analytics and user management.", link: "#", image: "cars.png", tags: ["Dashboard", "Charts", "Node"], year: 2024 },
-      { id: 5, title: "E-commerce Demo", description: "Marketing site with animations and download CTAs.", link: "https://shophud-frontend.onrender.com/", image: "shop.png", tags: ["Marketing", "SEO", "Performance"], year: 2022 },
-      { id: 6, title: "Weather App Landing", description: "Sample shop with product filters and cart flow.", link: "#", image: "weader.png", tags: ["Shop", "Payments", "UX"], year: 2025 },
-      { id: 8, title: "SoundSnap Music Recognition", description: "A React Native mobile application that identifies music playing around the user in real time.", image: "soundsnap-details.png", tags: ["React Native", "Expo", "Node.js", "Railway", "Music Recognition", "REST API"], year: 2026, status: "Live" },
-    ];
-
-    fetch("/api/projects")
-      .then((r) => r.json())
-      .then((data) => {
-        if (!data || (Array.isArray(data) && data.length === 0)) {
-          setProjects(sampleProjects);
-        } else {
-          setProjects(data || sampleProjects);
-        }
-      })
-      .catch(() => setProjects(sampleProjects));
-  }, []);
 
   return (
     <div className="mx-auto py-6 relative">
       <div className="tech-bg absolute inset-0 -z-10" />
       <div className="color-swirl" aria-hidden />
       <h2 className="text-3xl font-semibold text-center mb-8 text-gray-100">
-        My <span className="text-teal-300">Projects</span>
+        My <span className="text-blue-300">Projects</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 project-grid">
-        {projects.length === 0 && <div className="text-gray-400">No projects yet.</div>}
         {projects.map((p) => (
           <article
-            key={p.id || p.title}
+            key={p.id}
             className="project-card overflow-hidden rounded-2xl shadow-2xl hover:shadow-[0_30px_80px_rgba(3,10,20,0.6)] transition-shadow duration-300 cursor-pointer"
-            onClick={() => setModal(p.image ?? null)}
+            onClick={() => p.image && setModal(p.image)}
           >
             {p.image && (
               <div className="project-hero-frame relative">
@@ -73,22 +99,20 @@ export default function Projects() {
                 {p.year && <span>{p.year} • </span>}
                 {p.description}
               </div>
-              {p.tags && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {p.tags.map((t) => (
-                    <span key={t} className="text-xs bg-[rgba(5,150,150,0.08)] border border-[rgba(5,150,150,0.12)] px-3 py-1 rounded-full text-teal-200">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {p.link && p.link !== "#" && (
-                  <a
+              <div className="flex flex-wrap gap-2 mb-4">
+                {p.tags.map((t) => (
+                  <span key={t} className="text-xs bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.2)] px-3 py-1 rounded-full text-blue-200">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              {p.link && (
+                <a
                   href={p.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 transition-colors"
+                  className="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition-colors"
                 >
                   View Project
                 </a>

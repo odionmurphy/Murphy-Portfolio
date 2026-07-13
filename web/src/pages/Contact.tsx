@@ -1,7 +1,7 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Contact.css";
 
 // Set this in your frontend's .env as VITE_API_URL=https://your-backend.onrender.com
@@ -48,25 +48,6 @@ export default function Contact() {
   }
 
   const validEmail = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
-
-  // particle effect
-  useEffect(() => {
-    function createParticle(x: number, y: number) {
-      const particle = document.createElement("div");
-      particle.className = "contact-particle";
-      particle.style.left = `${x}px`;
-      particle.style.top = `${y}px`;
-      document.body.appendChild(particle);
-      particle.addEventListener("animationend", () => particle.remove());
-    }
-
-    function handleMove(e: MouseEvent) {
-      if (Math.random() > 0.88) createParticle(e.clientX, e.clientY);
-    }
-
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
 
   return (
     <section id="contact" className="contact-section relative overflow-hidden">
@@ -129,7 +110,7 @@ export default function Contact() {
           <a href="https://github.com/odionmurphy" target="_blank" rel="noreferrer">
             ♟ GitHub
           </a>
-          <a href="https://www.linkedin.com/in/murphy-usunobun-5a159a226/">🔗 LinkedIn</a>
+          <a href="https://linkedin.com/in/odionmurphy" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
         
         </div>
       </div>

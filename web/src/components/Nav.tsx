@@ -5,6 +5,7 @@ export default function Nav() {
   const links = [
     { href: "#", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#experience", label: "Experience" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
   ];
@@ -20,8 +21,8 @@ export default function Nav() {
         {/* Logo */}
         <div className="nav-left">
             
-            <div className="w-[42px] h-[42px] rounded-xl bg-gradient-to-br from-teal-400 to-cyan-400 flex items-center justify-center font-black text-sm tracking-wide shadow-[0_0_12px_rgba(20,184,166,0.6),0_0_24px_rgba(6,182,212,0.4)]">
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400">
+            <div className="w-[42px] h-[42px] rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center font-black text-sm tracking-wide shadow-[0_0_12px_rgba(59,130,246,0.6),0_0_24px_rgba(34,211,238,0.4)]">
+  <span className="text-white">
     MP
   </span>
 </div>

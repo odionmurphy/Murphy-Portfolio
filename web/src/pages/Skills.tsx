@@ -2,50 +2,40 @@ import React from "react";
 
 const categories = [
   {
-    title: "Frontend",
-    items: ["React", "TypeScript", "Tailwind CSS", "HTML/CSS", "JavaScript"],
+    title: "Frontend Development",
+    items: ["React", "Next.js", "Vue.js", "TypeScript", "JavaScript (ES6+)", "HTML5 / CSS3", "SCSS/SASS", "Tailwind CSS"],
   },
   {
-    title: "Tools & Platforms",
-    items: ["Git/GitHub", "VS Code", "Figma", "Trello",  "Vite", "npm"],
+    title: "Backend & Databases",
+    items: ["Node.js", "Express.js", "PHP", "REST API development", "PostgreSQL", "MongoDB"],
   },
   {
-    title: "Soft Skills",
-    items: ["Problem Solving", "Communication", "Team Work", "Time Management"],
+    title: "Tools, DevOps & Automation",
+    items: ["Git/GitHub", "Docker", "CI/CD fundamentals", "n8n", "Zapier", "Make.com", "Airtable"],
   },
 ];
 
 const allSkills = [
-   { name: "Ai-Automation", icon: "🤖" },
   { name: "JavaScript", icon: "⚡" },
-  { name: "React", icon: "⚛️" },
   { name: "TypeScript", icon: "T" },
-  { name: "Tailwind CSS", icon: "▦" },
-  { name: "HTML/CSS", icon: "<>" },
-  { name: "Node.js", icon: "⬢" },
-  { name: "Docker", icon: "🐳" },
-  { name: "Git", icon: "🔧" },
-  { name: "Trello", icon: "📋" },
-  { name: "Figma", icon: "🎨" },
-  { name: "Vite", icon: "⚡" },
-  { name: "Testing", icon: "✅" },
-
- 
-  { name: "Accessibility", icon: "♿" },
-  { name: "Performance", icon: "🚀" },
+  { name: "React", icon: "⚛️" },
   { name: "Next.js", icon: "⏭️" },
-  { name: "GraphQL", icon: "🔗" },
-  { name: "REST APIs", icon: "🌐" },
-  { name: "CI/CD", icon: "🔄" },
-  { name: "Webpack", icon: "📦" },
-  { name: "PostgreSQL", icon: "🐘" },
+  { name: "Vue.js", icon: "V" },
+  { name: "HTML5/CSS3", icon: "<>" },
+  { name: "Tailwind CSS", icon: "▦" },
+  { name: "Node.js", icon: "⬢" },
+  { name: "Express.js", icon: "E" },
   { name: "PHP", icon: "🐘" },
-  { name: "wordpress", icon: "W" },
-  { name: "SEO", icon: "🔍" },
-  { name: "laravel", icon: "L" },
-  
-
-
+  { name: "REST APIs", icon: "🌐" },
+  { name: "PostgreSQL", icon: "🐘" },
+  { name: "MongoDB", icon: "🍃" },
+  { name: "Git/GitHub", icon: "🔧" },
+  { name: "Docker", icon: "🐳" },
+  { name: "CI/CD", icon: "🔄" },
+  { name: "n8n", icon: "🤖" },
+  { name: "Zapier", icon: "⚡" },
+  { name: "Make.com", icon: "🔗" },
+  { name: "Airtable", icon: "📋" },
 ];
 
 export default function Skills() {
@@ -59,13 +49,13 @@ export default function Skills() {
             key={c.title}
             className="p-6 bg-gray-800 rounded-lg text-gray-200"
           >
-            <h3 className="text-xl font-semibold text-yellow-400 mb-3">
+            <h3 className="text-xl font-semibold text-blue-400 mb-3">
               {c.title}
             </h3>
             <ul className="space-y-2 text-gray-300">
               {c.items.map((it) => (
                 <li key={it} className="flex items-center gap-3">
-                  <span className="text-yellow-400">•</span>
+                  <span className="text-blue-400">•</span>
                   <span>{it}</span>
                 </li>
               ))}
@@ -75,7 +65,7 @@ export default function Skills() {
       </div>
 
       <div className="mb-4">
-        <h4 className="text-yellow-400 font-semibold mb-2">All Skills</h4>
+        <h4 className="text-blue-400 font-semibold mb-2">All Skills</h4>
         <div className="skill-marquee">
           <div className="skill-track">
             {allSkills.concat(allSkills).map((s, idx) => (
@@ -83,7 +73,7 @@ export default function Skills() {
                 key={s.name + idx}
                 className="inline-flex items-center gap-3 px-4 py-2 bg-gray-700 text-gray-100 rounded-full shadow"
               >
-                <span className="text-yellow-400 text-lg">{s.icon}</span>
+                <span className="text-blue-400 text-lg">{s.icon}</span>
                 <span className="whitespace-nowrap">{s.name}</span>
               </div>
             ))}
