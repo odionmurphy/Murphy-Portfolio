@@ -112,6 +112,18 @@ serve({
     }
 
     /* ---- SERVE STATIC FILES ---- */
+    // Content-hashed build assets (e.g. /assets/index-XXXX.js) never change
+    // under the same filename, so they can be cached forever. Everything
+    // else — especially index.html, the SPA entry point — must always be
+    // revalidated, otherwise browsers can keep serving a stale HTML page
+    // that references an old (or deleted) JS bundle after a new deploy.
+    function cacheHeaders(pathname: string): Record<string, string> {
+      if (pathname.startsWith("/assets/")) {
+        return { "Cache-Control": "public, max-age=31536000, immutable" };
+      }
+      return { "Cache-Control": "no-cache" };
+    }
+
     let filePath = path.join(PUBLIC_DIR, url.pathname);
     if (url.pathname === "/" || url.pathname === "") {
       filePath = path.join(PUBLIC_DIR, "index.html");
@@ -119,14 +131,14 @@ serve({
 
     const bunFile = file(filePath);
     if (await bunFile.exists()) {
-      return new Response(bunFile);
+      return new Response(bunFile, { headers: cacheHeaders(url.pathname) });
     }
 
     // SPA fallback
     const indexFile = file(path.join(PUBLIC_DIR, "index.html"));
     if (await indexFile.exists()) {
       return new Response(indexFile, {
-        headers: { "Content-Type": "text/html" },
+        headers: { "Content-Type": "text/html", "Cache-Control": "no-cache" },
       });
     }
 
