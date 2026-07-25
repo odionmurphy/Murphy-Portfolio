@@ -49,6 +49,8 @@ const projects: Project[] = [
     title: "Business Workflow Automation Tool",
     description:
       "Designed and deployed automated business workflows using n8n, with AI-powered pipelines to reduce manual data processing and third-party API integrations across multi-step business processes.",
+    image: "ai-book.png",
+    link: "https://murphy-automation.vercel.app/#demos",
     tags: ["n8n", "Workflow Automation", "AI Automation", "REST API"],
     year: 2025,
   },
@@ -60,6 +62,37 @@ const projects: Project[] = [
     link: "https://murphy1.onrender.com/",
     image: "murphy.png",
     tags: ["React", "Vite", "TypeScript", "Responsive Design"],
+    year: 2026,
+  },
+
+  {
+    id: 4,
+    title: "Digital Shop — E-commerce Marketplace",
+    description:
+      "A digital products storefront for templates, code snippets, datasets, and guides — with product browsing, search, categories, a shopping cart, and a checkout flow, backed by an Express + Prisma API.",
+    link: "https://portfolio-eta-rust-5g0s1ohty3.vercel.app/",
+    image: "digital.png",
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Express", "Prisma"],
+    year: 2026,
+  },
+
+  {
+    id: 5,
+    title: "VoiceFlow AI — AI Phone Receptionist SaaS",
+    description:
+      "A full-stack AI receptionist platform for small service businesses: a Node/Express/PostgreSQL backend, a React Native mobile app, a Next.js web dashboard, and a Twilio + Gemini voice pipeline that answers real phone calls, has a natural conversation, and books real appointments — with SMS and email confirmations sent automatically.",
+    link: "https://voiceflow-ai-web.vercel.app/dashboard",
+    image: "landing.png",
+    tags: [
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "React Native",
+      "Next.js",
+      "Twilio",
+      "Gemini AI",
+      "TypeScript",
+    ],
     year: 2026,
   },
 ];
@@ -78,13 +111,17 @@ export default function Projects() {
         {projects.map((p) => (
           <article
             key={p.id}
-            className="project-card overflow-hidden rounded-2xl shadow-2xl hover:shadow-[0_30px_80px_rgba(3,10,20,0.6)] transition-shadow duration-300 cursor-pointer"
+            className="project-card overflow-hidden rounded-2xl border border-[rgba(59,130,246,0.18)] bg-[rgba(6,10,18,0.8)] shadow-[0_20px_60px_rgba(2,8,23,0.55)] hover:shadow-[0_30px_80px_rgba(3,10,20,0.7)] transition-all duration-300 cursor-pointer"
             onClick={() => p.image && setModal(p.image)}
           >
             {p.image && (
               <div className="project-hero-frame relative">
                 <div className="project-hero relative bg-gradient-to-br from-slate-800 to-slate-900">
-                  <img src={p.image} alt={p.title} className="object-cover w-full h-64 md:h-80 rounded-t-xl" />
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="object-cover w-full h-64 md:h-80 rounded-t-xl"
+                  />
                   {p.status && (
                     <span className="absolute top-3 right-3 bg-black/40 text-sm text-gray-100 px-3 py-1 rounded-full backdrop-blur">
                       {p.status}
@@ -93,15 +130,20 @@ export default function Projects() {
                 </div>
               </div>
             )}
-            <div className="p-6 bg-[rgba(6,10,18,0.55)] text-gray-100">
-              <h3 className="text-2xl font-semibold mb-2 project-title">{p.title}</h3>
+            <div className="p-6 bg-[rgba(2,6,23,0.9)] text-gray-100">
+              <h3 className="text-2xl font-semibold mb-2 project-title">
+                {p.title}
+              </h3>
               <div className="text-sm text-gray-300 mb-3">
                 {p.year && <span>{p.year} • </span>}
                 {p.description}
               </div>
               <div className="flex flex-wrap gap-2 mb-4">
                 {p.tags.map((t) => (
-                  <span key={t} className="text-xs bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.2)] px-3 py-1 rounded-full text-blue-200">
+                  <span
+                    key={t}
+                    className="text-xs bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.2)] px-3 py-1 rounded-full text-blue-200"
+                  >
                     {t}
                   </span>
                 ))}
@@ -112,7 +154,7 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition-colors"
+                  className="inline-block mt-2 px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-500 shadow-[0_0_25px_rgba(59,130,246,0.25)] hover:scale-[1.02] transition-all"
                 >
                   View Project
                 </a>
@@ -122,8 +164,15 @@ export default function Projects() {
         ))}
       </div>
       {modal && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 cursor-zoom-out" onClick={() => setModal(null)}>
-          <img src={modal} alt="Project" className="max-h-[90%] max-w-[90%] rounded-xl shadow-2xl" />
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 cursor-zoom-out"
+          onClick={() => setModal(null)}
+        >
+          <img
+            src={modal}
+            alt="Project"
+            className="max-h-[90%] max-w-[90%] rounded-xl shadow-2xl"
+          />
         </div>
       )}
     </div>
