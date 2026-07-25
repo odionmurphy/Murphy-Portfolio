@@ -203,21 +203,26 @@ export default function App() {
                     Murphy Odion Usunobun
                   </h1>
                   <p className="text-lg sm:text-xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                    Frontend-Focused Full-Stack Developer
+                     Full-Stack Developer
                   </p>
                   <p className="text-gray-300 mb-7 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
                     <Typing text="Results-driven Full-Stack Developer with hands-on experience rebuilding production websites and engineering business automation pipelines. I recently completed a Frontend Developer internship at Show Not Tell, leveraging React, Next.js, and low-code tools like n8n, Zapier, and Make.com to streamline operations." />
                   </p>
                   <div className="flex flex-wrap justify-center gap-3">
-                    {([{
-                      type: 'link',
-                      href: '#projects',
-                      label: 'View Projects'
-                    }, {
-                      type: 'link',
-                      href: '#contact',
-                      label: 'Contact'
-                    }] as const).map((item) => (
+                    {(
+                      [
+                        {
+                          type: "link",
+                          href: "#projects",
+                          label: "View Projects",
+                        },
+                        {
+                          type: "link",
+                          href: "#contact",
+                          label: "Contact",
+                        },
+                      ] as const
+                    ).map((item) => (
                       <a
                         key={item.label}
                         href={item.href}
