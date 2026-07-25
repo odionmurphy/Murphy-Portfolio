@@ -1,17 +1,11 @@
-
-
-
-
-
 /* =========================
-   Static Navbar (NOT sticky)
+   Navbar fixed to top
    ========================= */
 
 .nav-header {
-
- 
-  position: relative;
-  
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
   background: linear-gradient(
     180deg,
     rgba(8, 12, 20, 0.95),
@@ -29,6 +23,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.nav-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #3b82f6, #22d3ee);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.6),
+    0 0 24px rgba(34, 211, 238, 0.4);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.nav-logo:hover,
+.nav-logo:focus-visible {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 16px rgba(59, 130, 246, 0.8),
+    0 0 28px rgba(34, 211, 238, 0.6);
 }
 
 /* Left block */
@@ -126,7 +148,6 @@
     display: none;
   }
 }
-
 
 @media (max-width: 768px) {
   .nav-links {

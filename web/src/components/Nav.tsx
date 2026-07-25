@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Nav.css";
 
 export default function Nav() {
+  const [currentHash, setCurrentHash] = useState(
+    () => window.location.hash || "#",
+  );
+
+  useEffect(() => {
+    const handleHashChange = () => setCurrentHash(window.location.hash || "#");
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const links = [
     { href: "#", label: "Home" },
     { href: "#about", label: "About" },
@@ -11,8 +21,7 @@ export default function Nav() {
   ];
 
   function isActive(href: string) {
-    const current = location.hash || "#";
-    return href === "#" ? current === "#" : current === href;
+    return href === "#" ? currentHash === "#" : currentHash === href;
   }
 
   return (
@@ -20,13 +29,10 @@ export default function Nav() {
       <div className="nav-container">
         {/* Logo */}
         <div className="nav-left">
-            
-            <div className="w-[42px] h-[42px] rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center font-black text-sm tracking-wide shadow-[0_0_12px_rgba(59,130,246,0.6),0_0_24px_rgba(34,211,238,0.4)]">
-  <span className="text-white">
-    MP
-  </span>
-</div>
-       
+          <a href="#" className="nav-logo" aria-label="Home">
+            <span>MP</span>
+          </a>
+
           <div className="nav-title">
             <div className="nav-name">Murphy Portfolio</div>
             <div className="nav-role"> Frontend Developer</div>
