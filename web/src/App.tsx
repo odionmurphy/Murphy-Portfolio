@@ -470,7 +470,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Frontend-focused developer creating polished interfaces and
+                focused developer creating polished interfaces and
                 reliable web experiences.
               </p>
             </div>

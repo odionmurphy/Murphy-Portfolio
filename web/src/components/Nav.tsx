@@ -35,7 +35,7 @@ export default function Nav() {
 
           <div className="nav-title">
             <div className="nav-name">Murphy Portfolio</div>
-            <div className="nav-role"> Frontend Developer</div>
+            <div className="nav-role"> Welcome You</div>
           </div>
         </div>
 

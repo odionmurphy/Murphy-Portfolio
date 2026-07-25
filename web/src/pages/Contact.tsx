@@ -110,7 +110,7 @@ export default function Contact() {
           <a href="https://github.com/odionmurphy" target="_blank" rel="noreferrer">
             ♟ GitHub
           </a>
-          <a href="https://linkedin.com/in/odionmurphy" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
+          <a href="https://linkedin.com/https://www.linkedin.com/in/murphy-usunobun-5a159a226/in/odionmurphy" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
         
         </div>
       </div>
