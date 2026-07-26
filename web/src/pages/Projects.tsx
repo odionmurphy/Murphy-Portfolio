@@ -54,16 +54,7 @@ const projects: Project[] = [
     tags: ["n8n", "Workflow Automation", "AI Automation", "REST API"],
     year: 2025,
   },
-  {
-    id: 4,
-    title: "Developer Portfolio Website",
-    description:
-      "A personal developer portfolio showcasing projects with responsive design and modern UI components, deployed on cloud hosting.",
-    link: "https://murphy1.onrender.com/",
-    image: "murphy.png",
-    tags: ["React", "Vite", "TypeScript", "Responsive Design"],
-    year: 2026,
-  },
+  
 
   {
     id: 4,
