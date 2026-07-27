@@ -86,6 +86,19 @@ const projects: Project[] = [
     ],
     year: 2026,
   },
+
+{
+    id: 6,
+    title: "WorkOS AuthKit Extension — Open Source Contribution",
+    description:
+      "Contributed a new authentication extension to create-awesome-node-app, a CLI scaffolding tool for Next.js/React/Node projects. Added hosted auth via WorkOS AuthKit (sign-in, sign-up, MFA, SSO), integrating with the project's composable middleware architecture. Found and fixed a missing peer dependency that broke production builds, and verified the full sign-in flow end-to-end against a live WorkOS project.",
+    link: "https://github.com/Create-Node-App/cna-templates/pull/339",
+      image: "scaff.png",
+    tags: ["Next.js", "TypeScript", "WorkOS AuthKit", "Open Source"],
+    year: 2026,
+    status: "In Review",
+  },
+
 ];
 
 export default function Projects() {
