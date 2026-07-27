@@ -96,8 +96,20 @@ const projects: Project[] = [
       image: "scaff.png",
     tags: ["Next.js", "TypeScript", "WorkOS AuthKit", "Open Source"],
     year: 2026,
-    status: "In Review",
+    
   },
+
+{
+  id: 7,
+  title: "PayFast — Digital Wallet App",
+  description:
+    "A full-stack digital wallet application enabling users to send and receive money, with a Bun/Express/PostgreSQL backend containerized with Docker and deployed on Render, and a React + Vite + Tailwind frontend deployed on Vercel.",
+  link: "https://frontend-jade-mu-68.vercel.app/",
+   image: "pay.png",
+  tags: ["React", "TypeScript", "Bun", "Express", "PostgreSQL", "Docker", "Tailwind CSS"],
+  year: 2026,
+  status: "Live",
+},
 
 ];
 
