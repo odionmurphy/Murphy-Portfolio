@@ -242,6 +242,7 @@ body::after {
 
 /* Footer styling */
 .site-footer {
+  position: relative;
   background: linear-gradient(
     180deg,
     rgba(8, 12, 20, 0.45),
@@ -249,7 +250,34 @@ body::after {
   );
   color: #e6eaf2;
   border-radius: 12px 12px 0 0;
-  box-shadow: 0 -8px 30px rgba(2, 6, 23, 0.5);
+  box-shadow:
+    0 -8px 30px rgba(2, 6, 23, 0.5),
+    0 -1px 16px rgba(59, 130, 246, 0.3),
+    0 -6px 28px rgba(34, 211, 238, 0.12);
+}
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 30%;
+  height: 2px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(90deg, transparent, #3b82f6, #22d3ee, #3b82f6, transparent);
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.7),
+    0 0 20px rgba(34, 211, 238, 0.5);
+  animation: footer-glow-travel 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes footer-glow-travel {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -30%;
+  }
 }
 .site-footer a {
   color: #93c5fd;
