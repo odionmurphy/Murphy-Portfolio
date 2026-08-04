@@ -206,7 +206,7 @@ export default function App() {
                      Full-Stack Developer
                   </p>
                   <p className="text-gray-300 mb-7 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-                    <Typing text="Results-driven Full-Stack Developer with hands-on experience rebuilding production websites and engineering business automation pipelines. I recently completed a Frontend Developer internship at Show Not Tell, leveraging React, Next.js, and low-code tools like n8n, Zapier, and Make.com to streamline operations." />
+                    <Typing text="Results-driven Full-Stack Developer with hands-on experience" />
                   </p>
                   <div className="flex flex-wrap justify-center gap-3">
                     {(
