@@ -111,6 +111,20 @@ const projects: Project[] = [
   status: "Live",
 },
 
+
+{
+  id: 8,
+  title: "StoreJavvy — Headless Shopify StoreJavvy",
+  description:
+    "A headless e-commerce storeJavvy built with Next.js App Router and TypeScript, powered by the Shopify StoreJavvy GraphQL API for live product, collection, and cart data. Features server-rendered product/collection browsing, search, and a cookie-based cart backed by Server Actions for add/update/remove and Shopify-hosted checkout, styled with Tailwind CSS and fully responsive.",
+  link: "https://javvy-store-nwr6vxgzx-odionusunobuns-projects.vercel.app/", // add once deployed
+  image: "javvy.png",
+  tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GraphQL", "Shopify Storefront API"],
+  year: 2026,
+  status: "In Progress",
+},
+
+
 ];
 
 export default function Projects() {
