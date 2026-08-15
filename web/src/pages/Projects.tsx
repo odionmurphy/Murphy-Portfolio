@@ -43,6 +43,7 @@ const projects: Project[] = [
     image: "shop.png",
     tags: ["React", "TypeScript", "REST API", "Responsive Design"],
     year: 2025,
+    status: "Live",
   },
   {
     id: 3,
@@ -53,6 +54,7 @@ const projects: Project[] = [
     link: "https://murphy-automation.vercel.app/#demos",
     tags: ["n8n", "Workflow Automation", "AI Automation", "REST API"],
     year: 2025,
+    status: "Live",
   },
   
 
@@ -65,6 +67,7 @@ const projects: Project[] = [
     image: "digital.png",
     tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Express", "Prisma"],
     year: 2026,
+    status: "Live",
   },
 
   {
@@ -85,6 +88,7 @@ const projects: Project[] = [
       "TypeScript",
     ],
     year: 2026,
+    status: "Live",
   },
 
 {
@@ -96,7 +100,7 @@ const projects: Project[] = [
       image: "scaff.png",
     tags: ["Next.js", "TypeScript", "WorkOS AuthKit", "Open Source"],
     year: 2026,
-    
+    status: "Live",
   },
 
 {
@@ -142,18 +146,19 @@ export default function Projects() {
   const [modal, setModal] = useState<string | null>(null);
 
   return (
-    <div className="mx-auto py-6 relative">
-      <div className="tech-bg absolute inset-0 -z-10" />
-      <div className="color-swirl" aria-hidden />
-      <h2 className="text-3xl font-semibold text-center mb-8 text-gray-100">
-        My <span className="text-blue-300">Projects</span>
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 project-grid">
+   <div className="mx-auto pt-12 pb-6 relative">
+  <div className="tech-bg absolute inset-0 -z-10" />
+  <div className="color-swirl" aria-hidden />
+
+  <h2 className="text-4xl font-semibold text-center mb-8 text-gray-100">
+    My <span className="text-blue-300">Projects</span>
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 project-grid">
         {projects.map((p) => (
           <article
             key={p.id}
-            className="project-card overflow-hidden rounded-2xl border border-[rgba(59,130,246,0.18)] bg-[rgba(6,10,18,0.8)] shadow-[0_20px_60px_rgba(2,8,23,0.55)] hover:shadow-[0_30px_80px_rgba(3,10,20,0.7)] transition-all duration-300 cursor-pointer"
-            onClick={() => p.image && setModal(p.image)}
+className="project-card group relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/80 via-slate-950/90 to-indigo-950/80 shadow-[0_0_35px_rgba(37,99,235,0.18)] hover:shadow-[0_0_55px_rgba(37,99,235,0.4)] transition-all duration-500 cursor-pointer"            onClick={() => p.image && setModal(p.image)}
           >
             {p.image && (
               <div className="project-hero-frame relative">
@@ -171,7 +176,7 @@ export default function Projects() {
                 </div>
               </div>
             )}
-            <div className="p-6 bg-[rgba(2,6,23,0.9)] text-gray-100">
+            <div className="relative z-10 p-6 bg-transparent text-gray-100">
               <h3 className="text-2xl font-semibold mb-2 project-title">
                 {p.title}
               </h3>
