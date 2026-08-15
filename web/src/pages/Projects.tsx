@@ -124,6 +124,17 @@ const projects: Project[] = [
   status: "In Progress",
 },
 
+{
+  id: 9,
+  title: "Wood Music — DJ Equipment E-Commerce Platform",
+  description:
+    "A full-stack e-commerce platform for DJ gear featuring a Next.js 14 frontend with TypeScript and Tailwind CSS, and an Express backend with Drizzle ORM and PostgreSQL (Neon). Includes product catalog with dynamic pricing in EUR, search/filtering, JWT authentication, and cart management. Backend and frontend deployed to Render and Vercel respectively, with spinning vinyl hero animation and flight-case industrial aesthetic.",
+  link: "https://wood-music.vercel.app",
+  image: "woodmusic.png",
+  tags: ["Next.js", "TypeScript", "React", "Express", "PostgreSQL", "Drizzle ORM", "Neon", "Tailwind CSS", "Render", "Vercel"],
+  year: 2026,
+  status: "Live",
+},
 
 ];
 
