@@ -140,6 +140,59 @@ const projects: Project[] = [
   status: "Live",
 },
 
+{
+  id: 9,
+  title: "Show Not Tell - Video Production & Visual Strategy",
+  description:
+    "A responsive website for Show Not Tell, a video production and visual strategy company. Includes a Wistia video message, service presentation, process carousel, FAQ section, contact details, and appointment booking flow. Built with React, TypeScript, Vite, and React Router, with a warm editorial design focused on visual storytelling and direct client conversion.",
+  link: "https://github.com/odionmurphy/Show-Not-Tell",
+  image: "show.png",
+  tags: ["React", "TypeScript", "Vite", "React Router", "Wistia", "Responsive Design", "Video Production"],
+  year: 2026,
+  
+},
+
+
+{
+
+id: 10,
+
+title: "Northstar Digital Market - Digital Commerce Platform",
+
+description:
+
+"An enterprise-level digital commerce solution to offer digital products and commerce solutions. Includes a product catalog, category filtering and search, product detail pages with features and benefits with pricing and FAQs, sales inquiry form, navigation, cinematic sky backgrounds with animated visual transitions, and product experience designed specifically for Operations, Security, Intelligence, and commerce integrations. Developed with PHP, HTML, CSS, and JavaScript using a dark publishing interface to create clarity, trust, and conversion. ",
+
+link: "YOUR_GITHUB_REPOSITORY_URL",
+
+image: "moon.png",
+
+tags: [
+
+"PHP",
+
+"HTML",
+
+"CSS",
+
+"JavaScript",
+
+"Responsive Design",
+
+"Product Catalog",
+
+"E-commerce",
+
+"UI/UX",
+
+"Conversion Design"
+
+],
+
+year: 2026,
+
+}
+
 ];
 
 export default function Projects() {
