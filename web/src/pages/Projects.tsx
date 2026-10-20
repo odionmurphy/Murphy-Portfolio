@@ -7,6 +7,7 @@ type Project = {
   description: string;
   link?: string;
   image?: string;
+  images?: string[];
   tags: string[];
   year: number | string;
   status?: string;
@@ -56,8 +57,6 @@ const projects: Project[] = [
     year: 2025,
     status: "Live",
   },
-  
-
   {
     id: 4,
     title: "Digital Shop — E-commerce Marketplace",
@@ -69,7 +68,6 @@ const projects: Project[] = [
     year: 2026,
     status: "Live",
   },
-
   {
     id: 5,
     title: "VoiceFlow AI — AI Phone Receptionist SaaS",
@@ -90,128 +88,125 @@ const projects: Project[] = [
     year: 2026,
     status: "Live",
   },
-
-{
+  {
     id: 6,
     title: "WorkOS AuthKit Extension — Open Source Contribution",
     description:
       "Contributed a new authentication extension to create-awesome-node-app, a CLI scaffolding tool for Next.js/React/Node projects. Added hosted auth via WorkOS AuthKit (sign-in, sign-up, MFA, SSO), integrating with the project's composable middleware architecture. Found and fixed a missing peer dependency that broke production builds, and verified the full sign-in flow end-to-end against a live WorkOS project.",
     link: "https://github.com/Create-Node-App/cna-templates/pull/339",
-      image: "scaff.png",
+    image: "scaff.png",
     tags: ["Next.js", "TypeScript", "WorkOS AuthKit", "Open Source"],
     year: 2026,
     status: "Live",
   },
-
-{
-  id: 7,
-  title: "PayFast — Digital Wallet App",
-  description:
-    "A full-stack digital wallet application enabling users to send and receive money, with a Bun/Express/PostgreSQL backend containerized with Docker and deployed on Render, and a React + Vite + Tailwind frontend deployed on Vercel.",
-  link: "https://frontend-jade-mu-68.vercel.app/",
-   image: "pay.png",
-  tags: ["React", "TypeScript", "Bun", "Express", "PostgreSQL", "Docker", "Tailwind CSS"],
-  year: 2026,
-  status: "Live",
-},
-
-
-{
-  id: 8,
-  title: "StoreJavvy — Headless Shopify StoreJavvy",
-  description:
-    "A headless e-commerce storeJavvy built with Next.js App Router and TypeScript, powered by the Shopify StoreJavvy GraphQL API for live product, collection, and cart data. Features server-rendered product/collection browsing, search, and a cookie-based cart backed by Server Actions for add/update/remove and Shopify-hosted checkout, styled with Tailwind CSS and fully responsive.",
-  link: "https://javvy-store-nwr6vxgzx-odionusunobuns-projects.vercel.app/", // add once deployed
-  image: "javvy.png",
-  tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GraphQL", "Shopify Storefront API"],
-  year: 2026,
-  status: "In Progress",
-},
-
-{
-  id: 9,
-  title: "Wood Music — DJ Equipment E-Commerce Platform",
-  description:
-    "A full-stack e-commerce platform for DJ gear featuring a Next.js 14 frontend with TypeScript and Tailwind CSS, and an Express backend with Drizzle ORM and PostgreSQL (Neon). Includes product catalog with dynamic pricing in EUR, search/filtering, JWT authentication, and cart management. Backend and frontend deployed to Render and Vercel respectively, with spinning vinyl hero animation and flight-case industrial aesthetic.",
-  link: "https://wood-music.vercel.app",
-  image: "woodmusic.png",
-  tags: ["Next.js", "TypeScript", "React", "Express", "PostgreSQL", "Drizzle ORM", "Neon", "Tailwind CSS", "Render", "Vercel"],
-  year: 2026,
-  status: "Live",
-},
-
-{
-  id: 9,
-  title: "Show Not Tell - Video Production & Visual Strategy",
-  description:
-    "A responsive website for Show Not Tell, a video production and visual strategy company. Includes a Wistia video message, service presentation, process carousel, FAQ section, contact details, and appointment booking flow. Built with React, TypeScript, Vite, and React Router, with a warm editorial design focused on visual storytelling and direct client conversion.",
-  link: "https://github.com/odionmurphy/Show-Not-Tell",
-  image: "show.png",
-  tags: ["React", "TypeScript", "Vite", "React Router", "Wistia", "Responsive Design", "Video Production"],
-  year: 2026,
-  
-},
-
-
-{
-
-id: 10,
-
-title: "Northstar Digital Market - Digital Commerce Platform",
-
-description:
-
-"An enterprise-level digital commerce solution to offer digital products and commerce solutions. Includes a product catalog, category filtering and search, product detail pages with features and benefits with pricing and FAQs, sales inquiry form, navigation, cinematic sky backgrounds with animated visual transitions, and product experience designed specifically for Operations, Security, Intelligence, and commerce integrations. Developed with PHP, HTML, CSS, and JavaScript using a dark publishing interface to create clarity, trust, and conversion. ",
-
-link: "https://northstar-bfsw.onrender.com/",
-
-image: "moon.png",
-
-tags: [
-
-"PHP",
-
-"HTML",
-
-"CSS",
-
-"JavaScript",
-
-"Responsive Design",
-
-"Product Catalog",
-
-"E-commerce",
-
-"UI/UX",
-
-"Conversion Design"
-
-],
-
-year: 2026,
-
-}
-
+  {
+    id: 7,
+    title: "PayFast — Digital Wallet App",
+    description:
+      "A full-stack digital wallet application enabling users to send and receive money, with a Bun/Express/PostgreSQL backend containerized with Docker and deployed on Render, and a React + Vite + Tailwind frontend deployed on Vercel.",
+    link: "https://frontend-jade-mu-68.vercel.app/",
+    image: "pay.png",
+    tags: ["React", "TypeScript", "Bun", "Express", "PostgreSQL", "Docker", "Tailwind CSS"],
+    year: 2026,
+    status: "Live",
+  },
+  {
+    id: 8,
+    title: "StoreJavvy — Headless Shopify StoreJavvy",
+    description:
+      "A headless e-commerce storeJavvy built with Next.js App Router and TypeScript, powered by the Shopify StoreJavvy GraphQL API for live product, collection, and cart data. Features server-rendered product/collection browsing, search, and a cookie-based cart backed by Server Actions for add/update/remove and Shopify-hosted checkout, styled with Tailwind CSS and fully responsive.",
+    link: "https://javvy-store-nwr6vxgzx-odionusunobuns-projects.vercel.app/",
+    image: "javvy.png",
+    tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GraphQL", "Shopify Storefront API"],
+    year: 2026,
+    status: "In Progress",
+  },
+  {
+    id: 9,
+    title: "Wood Music — DJ Equipment E-Commerce Platform",
+    description:
+      "A full-stack e-commerce platform for DJ gear featuring a Next.js 14 frontend with TypeScript and Tailwind CSS, and an Express backend with Drizzle ORM and PostgreSQL (Neon). Includes product catalog with dynamic pricing in EUR, search/filtering, JWT authentication, and cart management. Backend and frontend deployed to Render and Vercel respectively, with spinning vinyl hero animation and flight-case industrial aesthetic.",
+    link: "https://wood-music.vercel.app",
+    image: "woodmusic.png",
+    tags: ["Next.js", "TypeScript", "React", "Express", "PostgreSQL", "Drizzle ORM", "Neon", "Tailwind CSS", "Render", "Vercel"],
+    year: 2026,
+    status: "Live",
+  },
+  {
+    id: 10,
+    title: "Show Not Tell - Video Production & Visual Strategy",
+    description:
+      "A responsive website for Show Not Tell, a video production and visual strategy company. Includes a Wistia video message, service presentation, process carousel, FAQ section, contact details, and appointment booking flow. Built with React, TypeScript, Vite, and React Router, with a warm editorial design focused on visual storytelling and direct client conversion.",
+    link: "https://github.com/odionmurphy/Show-Not-Tell",
+    image: "show.png",
+    tags: ["React", "TypeScript", "Vite", "React Router", "Wistia", "Responsive Design", "Video Production"],
+    year: 2026,
+  },
+  {
+    id: 11,
+    title: "Northstar Digital Market - Digital Commerce Platform",
+    description:
+      "An enterprise-level digital commerce solution to offer digital products and commerce solutions. Includes a product catalog, category filtering and search, product detail pages with features and benefits with pricing and FAQs, sales inquiry form, navigation, cinematic sky backgrounds with animated visual transitions, and product experience designed specifically for Operations, Security, Intelligence, and commerce integrations. Developed with PHP, HTML, CSS, and JavaScript using a dark publishing interface to create clarity, trust, and conversion.",
+    link: "https://northstar-bfsw.onrender.com/",
+    image: "moon.png",
+    tags: [
+      "PHP",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive Design",
+      "Product Catalog",
+      "E-commerce",
+      "UI/UX",
+      "Conversion Design",
+    ],
+    year: 2026,
+  },
+  {
+    id: 12,
+    title: "Tropica - Travel Stay Booking App",
+    description:
+      "A cross-platform travel stay discovery app built with Expo and React Native from a Figma design. Includes an explore feed with search and category filters, swipeable property photos, a detail sheet with host and facility information, a wishlist for saving stays, trip overviews, an inbox with a host conversation, and a travel profile. Designed with a calm tropical visual style and responsive layouts for Android, iOS, and web. Built with TypeScript, Expo Router, and Expo SDK 58.",
+    link: "https://github.com/odionmurphy/Tropical",
+    image: "detail.png",
+    images: ["explore.png", "detail.png", "figma.png"],
+    tags: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "Figma",
+      "Responsive Design",
+      "UI/UX",
+      "Mobile App",
+    ],
+    year: 2026,
+  },
 ];
 
+type ModalState = { images: string[]; index: number } | null;
+
 export default function Projects() {
-  const [modal, setModal] = useState<string | null>(null);
+  const [modal, setModal] = useState<ModalState>(null);
 
   return (
-   <div className="mx-auto pt-12 pb-6 relative">
-  <div className="tech-bg absolute inset-0 -z-10" />
-  <div className="color-swirl" aria-hidden />
+    <div className="mx-auto pt-12 pb-6 relative">
+      <div className="tech-bg absolute inset-0 -z-10" />
+      <div className="color-swirl" aria-hidden />
 
-  <h2 className="text-4xl font-semibold text-center mb-8 text-gray-100">
-    My <span className="text-blue-300">Projects</span>
-  </h2>
+      <h2 className="text-4xl font-semibold text-center mb-8 text-gray-100">
+        My <span className="text-blue-300">Projects</span>
+      </h2>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 project-grid">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 project-grid">
         {projects.map((p) => (
           <article
             key={p.id}
-className="project-card group relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/80 via-slate-950/90 to-indigo-950/80 shadow-[0_0_35px_rgba(37,99,235,0.18)] hover:shadow-[0_0_55px_rgba(37,99,235,0.4)] transition-all duration-500 cursor-pointer"            onClick={() => p.image && setModal(p.image)}
+            className="project-card group relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/80 via-slate-950/90 to-indigo-950/80 shadow-[0_0_35px_rgba(37,99,235,0.18)] hover:shadow-[0_0_55px_rgba(37,99,235,0.4)] transition-all duration-500 cursor-pointer"
+            onClick={() => {
+              const imgs = p.images ?? (p.image ? [p.image] : []);
+              if (imgs.length) setModal({ images: imgs, index: 0 });
+            }}
           >
             {p.image && (
               <div className="project-hero-frame relative">
@@ -262,16 +257,52 @@ className="project-card group relative overflow-hidden rounded-2xl border border
           </article>
         ))}
       </div>
+
       {modal && (
         <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 cursor-zoom-out"
+          className="fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50 cursor-zoom-out"
           onClick={() => setModal(null)}
         >
           <img
-            src={modal}
+            src={modal.images[modal.index]}
             alt="Project"
-            className="max-h-[90%] max-w-[90%] rounded-xl shadow-2xl"
+            className="max-h-[80%] max-w-[90%] rounded-xl shadow-2xl cursor-default"
+            onClick={(e) => e.stopPropagation()}
           />
+
+          {modal.images.length > 1 && (
+            <div
+              className="flex items-center gap-4 mt-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="px-4 py-2 rounded bg-white/10 text-white hover:bg-white/20"
+                onClick={() =>
+                  setModal({
+                    ...modal,
+                    index:
+                      (modal.index - 1 + modal.images.length) % modal.images.length,
+                  })
+                }
+              >
+                ←
+              </button>
+              <span className="text-white">
+                {modal.index + 1} / {modal.images.length}
+              </span>
+              <button
+                className="px-4 py-2 rounded bg-white/10 text-white hover:bg-white/20"
+                onClick={() =>
+                  setModal({
+                    ...modal,
+                    index: (modal.index + 1) % modal.images.length,
+                  })
+                }
+              >
+                →
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
